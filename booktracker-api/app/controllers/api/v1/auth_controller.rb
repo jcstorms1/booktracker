@@ -1,4 +1,4 @@
-class Api::V1::AuthenticationController < ApplicationController
+class Api::V1::AuthController < ApplicationController
 
     def create
         user = User.find_by(email: params[:username])
@@ -23,4 +23,6 @@ class Api::V1::AuthenticationController < ApplicationController
                 }
         else
             render json: {error: "Invalid token!"}, status: 401
+        end
+    end
 end
