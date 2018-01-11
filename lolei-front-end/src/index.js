@@ -4,5 +4,13 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router } from 'react-router-dom'
-ReactDOM.render(<App />, document.getElementById('root'));
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'redux'
+ReactDOM.render(
+    <Provider>
+        <Router>
+            <App />
+        </Router>
+    </Provider>,
+document.getElementById('root'));
 registerServiceWorker();
