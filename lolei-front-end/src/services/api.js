@@ -13,12 +13,14 @@ const getCurrentUser = () => {
     }).then(res => res.json())
 }
 
-const login = data => {
-    fetch(`${API_ROOT}/login/`, {
-        method: 'post',
-        headers: headers,
-        body: JSON.stringify(data)
-    })
+export const login = data => {
+    return(
+        fetch(`${API_ROOT}/login/`, {
+            method: 'post',
+            headers: headers,
+            body: JSON.stringify(data)
+        })
+    )
 }
 
 const signup = data => {

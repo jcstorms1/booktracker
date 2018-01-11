@@ -19,7 +19,7 @@ class ApplicationController < ActionController::API
                 ENV['secret'],
                 true,
                 { :algorithm => 'HS256' })
-        rescue => exception
+        rescue JWT::DecodeError
             [{}]
         end
     end

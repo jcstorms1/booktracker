@@ -5,7 +5,7 @@ Rails.application.routes.draw do
       resources :lists
       resources :users
       
-      post '/auth', to: 'auth#create'
+      post '/login', to: 'auth#create'
     end
   end
 end

@@ -1,12 +1,13 @@
 class Api::V1::AuthController < ApplicationController
 
     def create
-        user = User.find_by(email: params[:username])
-        
+        user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
+            token = issue_token({user_id: user.id})
             render json: {
                 id: user.id,
-                username: user.email
+                username: user.email,
+                token: token
                 }
         else
             render json: {error: "Account not found!"}, status: 401
