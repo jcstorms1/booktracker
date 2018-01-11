@@ -1,16 +1,24 @@
 import logo from './logo.svg';
 import './App.css';
 
-import LoginForm from './containers/LoginForm'
-
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import LoginForm from './containers/LoginForm'
+import { logoutUser } from './actions/index'
 
 class App extends Component {
+  onLogOut = () => {
+    this.props.logoutUser()
+  }
+  
   render() {
+    console.log(this.loginUser)
     return (
       <div>
-        <nav class="navbar">
-          <button class="btn btn-outline-success pull-right my-2 my-sm-0">Log Out</button>
+        <nav className="navbar navbar-toggleable">
+          <div>
+          <button onClick={ this.onLogOut } className="btn btn-outline-success my-2 my-sm-0">Log Out</button>
+          </div>
         </nav>
         <div>
           <LoginForm />
@@ -20,4 +28,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(null, { logoutUser })(App);

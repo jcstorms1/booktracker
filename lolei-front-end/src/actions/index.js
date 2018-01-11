@@ -11,11 +11,13 @@ export function loginUser(formData) {
     }
 }
 
-export function setUser(userData) {
-    return ({type: 'LOGIN_USER', userData})
+export function logoutUser() {
+    return (dispatch) => {
+        localStorage.removeItem('token')
+        dispatch({type: 'LOGOUT_USER'})
+    }
 }
 
-
-export function logoutUser() {
-    localStorage.removeItem('token')
+export function setUser(userData) {
+    return ({type: 'LOGIN_USER', userData})
 }
