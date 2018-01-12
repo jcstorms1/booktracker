@@ -5,41 +5,56 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Route, Redirect, withRouter} from 'react-router-dom';
 
+import Nav from './components/navbar';
 import LoginForm from './containers/LoginForm';
-// import Dashboard from './containers/Dashboard';
+import Dashboard from './containers/Dashboard';
+import Signup from './containers/CreateAccount';
 import { getCurrentUser, logoutUser } from './actions';
 
 class App extends Component {
 
-  onLogOut = () => {
+  state = {
+    authenticated: false
+  }
+
+  onLogout = () => {
     this.props.logoutUser()
+    this.setState({authenticated: false})
+    this.props.history.push("/")   
   }
 
   componentDidMount() {
     if (localStorage.getItem('token')) {
       this.props.getCurrentUser()
+      this.setState({authenticated: true})
       }
     }
 
-
   render() {
+    console.log(this.state)
     return (
       <div>
-        <nav className="navbar navbar-toggleable">
-          <div>
-          <button onClick={ this.onLogOut } className="btn btn-outline-success my-2 my-sm-0">Log Out</button>
-          </div>
-        </nav>
+        <Nav onLogout={this.onLogout}/>
         <div>
           <Route
-            path='/login'
-            component={LoginForm}
+            exact
+            path='/'
+            render={ () => { return (
+              this.state.authenticated ?
+              <Redirect to='/dashboard'/> :
+              <LoginForm/>
+            )}}
           />
-          {/* <Route
+          <Route
             exact
             path='/dashboard'
             component={Dashboard}
-          /> */}
+          />
+          <Route
+            exact
+            path='/signup'
+            component={Signup}
+          />
         </div>
       </div>
     );

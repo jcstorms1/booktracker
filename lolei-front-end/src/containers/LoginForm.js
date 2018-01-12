@@ -19,6 +19,7 @@ class LoginForm extends Component {
     onSubmit = e => {
         e.preventDefault()
         this.props.loginUser(this.state)
+        this.props.history.push("/dashboard")
     }
     
     render() {
