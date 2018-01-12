@@ -7,10 +7,12 @@ const headers = {
     'Accepts': 'application/json',
 }
 
-const getCurrentUser = () => {
-    fetch(`${API_ROOT}/users`, {
-        headers: { Authorization: token}
-    }).then(res => res.json())
+export const fetchCurrentUser = () => {
+    return(
+        fetch(`${API_ROOT}/auth`, {
+            headers: { 'Authorization': token }
+        }).then(res => res.json())
+    )
 }
 
 export const login = data => {
@@ -19,7 +21,7 @@ export const login = data => {
             method: 'post',
             headers: headers,
             body: JSON.stringify(data)
-        })
+        }).then(res => res.json())
     )
 }
 

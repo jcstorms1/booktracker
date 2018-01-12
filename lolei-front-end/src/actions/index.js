@@ -1,12 +1,11 @@
-import { login } from '../services/api';
+import { login, fetchCurrentUser } from '../services/api';
 
 export function loginUser(formData) {
     return (dispatch) => {
         login(formData)
-            .then(res => res.json())
-            .then(userData =>{
-                localStorage.setItem('token', userData.token)          
-                dispatch(setUser(userData))
+            .then(res =>{
+                localStorage.setItem('token', res.token)          
+                dispatch({type: 'LOGIN_USER', res})
             })
     }
 }
@@ -18,6 +17,15 @@ export function logoutUser() {
     }
 }
 
-export function setUser(userData) {
-    return ({type: 'LOGIN_USER', userData})
+export function getCurrentUser() {
+    return (dispatch) => {
+        fetchCurrentUser()
+        .then(res => {
+            if(res.errors) {
+                localStorage.removeItem('token')
+            } else {
+                dispatch({type: 'SET_USER', res})
+            }
+        })
+    }
 }

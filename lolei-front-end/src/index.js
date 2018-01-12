@@ -19,10 +19,10 @@ const store = createStore(rootReducer,
     applyMiddleware(reduxThunk))
 
 ReactDOM.render(
-    <Router>
-        <Provider store={store}>
+    <Provider store={store}>
+        <Router>
             <Route path='/' component={ App }/>
-        </Provider>
-    </Router>,
+        </Router>
+    </Provider>,
 document.getElementById('root'));
 registerServiceWorker();

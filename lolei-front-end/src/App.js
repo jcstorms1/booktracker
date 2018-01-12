@@ -3,16 +3,26 @@ import './App.css';
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import LoginForm from './containers/LoginForm'
-import { logoutUser } from './actions/index'
+import {Route, Redirect, withRouter} from 'react-router-dom';
+
+import LoginForm from './containers/LoginForm';
+// import Dashboard from './containers/Dashboard';
+import { getCurrentUser, logoutUser } from './actions';
 
 class App extends Component {
+
   onLogOut = () => {
     this.props.logoutUser()
   }
-  
+
+  componentDidMount() {
+    if (localStorage.getItem('token')) {
+      this.props.getCurrentUser()
+      }
+    }
+
+
   render() {
-    console.log(this.loginUser)
     return (
       <div>
         <nav className="navbar navbar-toggleable">
@@ -21,11 +31,19 @@ class App extends Component {
           </div>
         </nav>
         <div>
-          <LoginForm />
+          <Route
+            path='/login'
+            component={LoginForm}
+          />
+          {/* <Route
+            exact
+            path='/dashboard'
+            component={Dashboard}
+          /> */}
         </div>
       </div>
     );
   }
 }
 
-export default connect(null, { logoutUser })(App);
+export default withRouter(connect(null, { logoutUser, getCurrentUser })(App));

@@ -1,5 +1,6 @@
 class Api::V1::AuthController < ApplicationController
-
+    skip_before_action :authorized
+    
     def create
         user = User.find_by(email: params[:email])
         if user && user.authenticate(params[:password])
@@ -17,7 +18,6 @@ class Api::V1::AuthController < ApplicationController
 
     def show
         if current_user
-            user = current_user
             render json: {
                 id: current_user.id,
                 username: current_user.email
