@@ -1,11 +1,12 @@
-import { login, fetchCurrentUser } from '../services/api';
+import { login, fetchCurrentUser } from '../services';
 
-export function loginUser(formData) {
+export function loginUser(formData, history) {
     return (dispatch) => {
         login(formData)
             .then(res =>{
                 localStorage.setItem('token', res.token)          
                 dispatch({type: 'LOGIN_USER', res})
+                history.push('/dashboard')
             })
     }
 }

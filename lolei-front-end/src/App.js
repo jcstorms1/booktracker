@@ -1,37 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Route, Redirect, withRouter} from 'react-router-dom';
+import {Route, withRouter} from 'react-router-dom';
 
 import Nav from './components/navbar';
 import LoginForm from './containers/LoginForm';
+import LandingPage from './components/landingPage';
 import Dashboard from './containers/Dashboard';
 import Signup from './containers/CreateAccount';
 import { getCurrentUser, logoutUser } from './actions';
 
 class App extends Component {
 
-  state = {
-    authenticated: false
-  }
-
   onLogout = () => {
     this.props.logoutUser()
-    this.setState({authenticated: false})
     this.props.history.push("/")   
   }
+  
+  logInButton = () => {
+    this.props.history.push('/login')
+  }
+  
+  signUpButton = () => {
+    this.props.history.push('/signup')
+  }
 
-  componentDidMount() {
-    if (localStorage.getItem('token')) {
-      this.props.getCurrentUser()
-      this.setState({authenticated: true})
-      }
-    }
 
   render() {
-    console.log(this.state)
     return (
       <div>
         <Nav onLogout={this.onLogout}/>
@@ -39,11 +33,17 @@ class App extends Component {
           <Route
             exact
             path='/'
-            render={ () => { return (
-              this.state.authenticated ?
-              <Redirect to='/dashboard'/> :
-              <LoginForm/>
-            )}}
+            render={() => 
+              <LandingPage 
+                logInButton={this.logInButton}
+                signUpButton={this.signUpButton}
+              />
+            }
+          />
+          <Route
+            exact
+            path='/login'
+            component={LoginForm}
           />
           <Route
             exact
@@ -60,5 +60,8 @@ class App extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  loggedIn: !!state.auth.currentUser.id
+})
 
-export default withRouter(connect(null, { logoutUser, getCurrentUser })(App));
+export default withRouter(connect(mapStateToProps, { logoutUser, getCurrentUser })(App));

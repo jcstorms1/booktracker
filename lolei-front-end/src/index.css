@@ -8,7 +8,7 @@ body {
   background: orange;
 }
 
-#center-div {
+.center-div {
   margin: 0 auto;
   width: 50vw;
 }
