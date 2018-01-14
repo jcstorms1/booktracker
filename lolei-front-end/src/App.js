@@ -12,8 +12,7 @@ import { getCurrentUser, logoutUser } from './actions';
 class App extends Component {
 
   onLogout = () => {
-    this.props.logoutUser()
-    this.props.history.push("/")   
+    this.props.logoutUser(this.props.history)
   }
   
   logInButton = () => {

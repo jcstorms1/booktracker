@@ -4,12 +4,10 @@ import { withRouter } from 'react-router-dom';
 
 import  withAuth  from '../hocs/withAuth'
 
-
 class Dashboard extends Component {
     render() {
         return (
-            <div><h1>hi</h1></div>
-            
+            <div><h1>HI</h1></div>
         )
     }
 }

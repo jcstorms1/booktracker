@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { FormGroup, ControlLabel, FormControl, Button} from 'react-bootstrap';
-
+import { createUser } from '../actions'
 class Signup extends Component {
 	state = {
 		firstName: '',
@@ -20,6 +20,7 @@ class Signup extends Component {
 
 	onSubmit = e => {
 		e.preventDefault()
+		this.props.createUser(this.state, this.props.history)
 	}
 
 	render() {
@@ -73,4 +74,4 @@ class Signup extends Component {
 	}
 }
 
-export default withRouter(Signup);
+export default withRouter(connect(null, { createUser})(Signup));

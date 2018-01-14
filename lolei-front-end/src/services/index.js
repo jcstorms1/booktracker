@@ -23,12 +23,14 @@ export const login = data => {
             body: JSON.stringify(data)
         }).then(res => res.json())
     )
-}
+} 
 
-const signup = data => {
-    fetch(`${API_ROOT}/users/`, {
-        method: 'post',
-        headers: headers,
-        body: JSON.stringify(data)
-    })
+export const signup = data => {
+    return(
+        fetch(`${API_ROOT}/users/`, {
+            method: 'post',
+            headers: headers,
+            body: JSON.stringify(data)
+        }).then(res => res.json())
+    )
 }

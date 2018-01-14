@@ -4,7 +4,6 @@ import { Redirect, withRouter } from 'react-router-dom';
 import { ButtonToolbar, Button } from 'react-bootstrap';
 
 const LandingPage = props => {
-    console.log(props)
     return (
         <div className="center-div">
             <h1>I'm a landing page</h1>
