@@ -7,7 +7,7 @@ import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 class LoginForm extends Component {
 
 	state = {
-		email: '',
+		username: '',
 		password: ''
 	}
 
@@ -29,7 +29,7 @@ class LoginForm extends Component {
 				<form onSubmit={ this.onSubmit }>
 					<FormGroup>
 						<ControlLabel>Email address</ControlLabel>
-						<FormControl type="email" onChange= {this.onChange} name="email" value={this.state.email} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+						<FormControl type="email" onChange= {this.onChange} name="username" value={this.state.username} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
 					</FormGroup>
 					<FormGroup>
 						<ControlLabel>Password</ControlLabel>

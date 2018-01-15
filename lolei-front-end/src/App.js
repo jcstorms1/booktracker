@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 
+import { getCurrentUser, logoutUser } from './actions';
+
 import Nav from './components/navbar';
 import LoginForm from './containers/LoginForm';
 import LandingPage from './components/landingPage';
 import Dashboard from './containers/Dashboard';
 import Signup from './containers/CreateAccount';
-import { getCurrentUser, logoutUser } from './actions';
 
 class App extends Component {
 

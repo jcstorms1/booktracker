@@ -5,3 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+parent = User.find(1)
+
+child1 = User.new
+child1.first_name = Faker::Name.first_name
+child1.last_name = Faker::Name.last_name
+child1.username = 'child1'
+child1.password = '123'
+child1.account_type = 'Child'
+child1.parent_id = parent.id
+child1.save
+
+10.times do 
+    child1.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author)
+end

@@ -1,10 +1,17 @@
 class Api::V1::UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create]
+    skip_before_action :authorized, only: [:create, :index]
+
+    def index
+        @user = User.first
+        render json: @user
+    end
+
+
     def create
         user = User.create({
             :first_name => user_params[:firstName].capitalize,
             :last_name => user_params[:lastName].capitalize,
-            :email => user_params[:email],
+            :username=> user_params[:email],
             :password => user_params[:password],
             :account_type => user_params[:accountType]
         })
