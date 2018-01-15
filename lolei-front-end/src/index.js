@@ -7,11 +7,15 @@ import { createStore, combineReducers, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import reduxThunk from 'redux-thunk'
 
-import  authReducer  from './reducers/authReducer';
+import authReducer from './reducers/authReducer';
+import awsReducer from './reducers/awsReducer'
 import App from './App';
 
 
-const rootReducer = combineReducers({ auth: authReducer })
+const rootReducer = combineReducers({ 
+    auth: authReducer,
+    aws: awsReducer
+ })
 
 const store = createStore(rootReducer, 
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(), 
