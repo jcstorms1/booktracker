@@ -9,6 +9,14 @@ class Dashboard extends Component {
 		return (
 			<div>
 				<Example/>
+				<div className="center-div">
+					<div class="input-group">
+						<input type="text" class="form-control" placeholder="Search by isbn..."/>
+						<span class="input-group-btn">
+							<button class="btn btn-secondary" type="button">Go!</button>
+						</span>
+					</div>
+				</div>
 			</div>
 		)
 	}

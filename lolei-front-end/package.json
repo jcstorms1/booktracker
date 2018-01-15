@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "crypto-js": "^3.1.9-1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-burger-menu": "^2.2.3",
@@ -11,7 +12,8 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "xml2js": "^0.4.19"
   },
   "scripts": {
     "start": "react-scripts start",
