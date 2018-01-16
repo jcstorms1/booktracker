@@ -11,8 +11,9 @@ class Book < ApplicationRecord
             "AssociateTag" => ENV['awstag'],
             "ItemId" => isbn.to_s.gsub('-',''),
             "IdType" => "ISBN",
-            "ResponseGroup" => "ItemAttributes",
-            "SearchIndex" => "All"
+            "ResponseGroup" => "Images,ItemAttributes",
+            "SearchIndex" => "Book",
+            "Condition" => "New"
         }
 
         params['Time'] = params["Timestamp"] = Time.now.gmtime.iso8601 if !params.key?("Timestamp")
