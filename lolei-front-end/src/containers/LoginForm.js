@@ -25,7 +25,6 @@ class LoginForm extends Component {
 	render() {
 		return(
 			<div className='center-div'>
-
 				<form onSubmit={ this.onSubmit }>
 					<FormGroup>
 						<ControlLabel>Email address</ControlLabel>

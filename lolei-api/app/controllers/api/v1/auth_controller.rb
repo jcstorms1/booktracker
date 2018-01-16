@@ -7,11 +7,7 @@ class Api::V1::AuthController < ApplicationController
             token = issue_token({user_id: user.id})
             if user.parent? && user.children != []
                 render json: {
-                    id: user.id,
-                    username: user.username,
-                    account_type: user.account_type,
-                    books: user.books,
-                    children: user.children,
+                    user: UserSerializer.new(user),
                     token: token
                 }
             end
@@ -24,8 +20,7 @@ class Api::V1::AuthController < ApplicationController
     def show
         if current_user
             render json: {
-                id: current_user.id,
-                username: current_user.username
+                user: UserSerializer.new(current_user)
                 }
         else
             render json: {error: "Invalid token!"}, status: 401
