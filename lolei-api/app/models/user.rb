@@ -4,12 +4,17 @@ class User < ApplicationRecord
     
     has_many :lists
     has_many :books, through: :lists
-    has_many :childrens_books, through: :children, class_name: "List"
+    has_many :childrens_lists, through: :children, source: :lists
+    # has_many :childrens_books, through: :childrens_lists, source: :books
     
     before_validation :downcase_username
     validates :username, uniqueness: true, presence: true
     
     has_secure_password
+
+    # def childrens_books
+    #     self.children.map { |child|  child.books }.flatten.uniq
+    # end
 
     def parent?
         parent_id.nil?

@@ -16,6 +16,16 @@ child1.account_type = 'Child'
 child1.parent_id = parent.id
 child1.save
 
+child2 = User.new
+child2.first_name = Faker::Name.first_name
+child2.last_name = Faker::Name.last_name
+child2.username = 'child2'
+child2.password = '123'
+child2.account_type = 'Child'
+child2.parent_id = parent.id
+child2.save
+
 10.times do 
     child1.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author)
+    child2.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author)
 end

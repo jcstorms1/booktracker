@@ -12,7 +12,7 @@ class Book < ApplicationRecord
             "ItemId" => isbn.to_s.gsub('-',''),
             "IdType" => "ISBN",
             "ResponseGroup" => "Images,ItemAttributes",
-            "SearchIndex" => "Book",
+            "SearchIndex" => "Books",
             "Condition" => "New"
         }
 
@@ -22,7 +22,19 @@ class Book < ApplicationRecord
         signature = self.get_signature(string_to_sign)
         signed_url = self.generate_url(unsigned_string, signature)
         xml = RestClient.get(signed_url)
-        json = Hash.from_xml(xml).to_json
+        json = Hash.from_xml(xml)
+    end
+
+    def self.pull_data_from_json(json)
+        data = {}
+        item = json['ItemLookupResponse']['Items']['Item']
+        attributes = item['ItemAttributes']
+
+        data['title'] = attributes['Title']
+        data['author'] = attributes['Author']
+        data['isbn'] = attributes['ISBN']
+        data['thumbnail'] = item['MediumImage']['URL']
+        data['date_read'] = Time.now.strftime("%-B %-d, %Y")
     end
 
 
@@ -42,4 +54,3 @@ class Book < ApplicationRecord
         "http://#{"webservices.amazon.com"}#{"/onca/xml"}?#{unsigned_string}&Signature=#{URI.escape(signature, Regexp.new("[^#{URI::PATTERN::UNRESERVED}]"))}"
     end
 end
-

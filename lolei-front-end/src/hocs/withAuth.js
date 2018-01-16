@@ -11,7 +11,8 @@ const withAuth = WrappedComponent => {
         }
 
         componentDidMount() {
-            if (localStorage.getItem('token')){
+            // if there is not a currentUser in redux store
+            if (localStorage.getItem('token') && !this.props.loggedIn){
                 this.props.getCurrentUser();
             } else {
                 this.setState({ authenticated: true})

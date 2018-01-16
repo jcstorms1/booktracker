@@ -3,8 +3,8 @@
     position: fixed;
     width: 36px;
     height: 30px;
-    left: 36px;
-    top: 36px;
+    left: 1.25vw;
+    top: 1.25vh;
   }
   
   /* Color/shape of burger icon bars */
@@ -44,4 +44,9 @@
   /* Styling of overlay */
   .bm-overlay {
     background: rgba(0, 0, 0, 0.3);
+  }
+
+  .my-button {
+    margin: 0;
+    padding: 0;
   }

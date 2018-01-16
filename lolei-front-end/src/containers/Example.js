@@ -11,9 +11,9 @@ class Example extends React.Component {
   render () {
 	return (
 		<div>
-			<Menu noOverlay>
+			<Menu noOverlay burgerButtonClassName={ "my-button" }>
 				<ul className="nav flex-column">
-					<li className="nav-item">
+					<li className="nav-item ">
 						<a className="nav-link active" href="#">Hi</a>
 					</li>
 					<li className="nav-item">
