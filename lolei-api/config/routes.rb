@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       
       post '/login', to: 'auth#create'
       get '/auth', to: 'auth#show'
-      get '/byisbn', to: 'books#byisbn'
+      post '/byisbn', to: 'books#byisbn'
       
     end
   end

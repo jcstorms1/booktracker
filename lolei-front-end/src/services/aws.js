@@ -1,11 +1,20 @@
-export const fetchISBN = itemId => {
-    return(
-    fetch(signURL(unsigned(itemId)), {
-        headers: { 
-            'content-type': 'application/xml',
-            'Accept': 'application/xml'
-        }
+const API_ROOT = `http://localhost:3001/api/v1`;
+
+const token = localStorage.getItem('token');
+
+const headers = {
+  'Content-Type': 'application/json',
+  'Accepts': 'application/json',
+  'Authorization': 'token'
+}
+
+export const fetchISBN = isbn => {
+  return(
+    fetch(`${API_ROOT}/byisbn/`, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({isbn: isbn})
     })
-    .then(res => res.text())
-    )
+    .then(res => res.json())
+  )
 }

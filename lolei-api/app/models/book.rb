@@ -11,7 +11,7 @@ class Book < ApplicationRecord
             "AssociateTag" => ENV['awstag'],
             "ItemId" => isbn.to_s.gsub('-',''),
             "IdType" => "ISBN",
-            "ResponseGroup" => "Images,ItemAttributes",
+            "ResponseGroup" => "ItemAttributes",
             "SearchIndex" => "All"
         }
 

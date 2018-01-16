@@ -5,12 +5,13 @@ const token = localStorage.getItem('token');
 const headers = {
 	'Content-Type': 'application/json',
 	'Accepts': 'application/json',
+	'Authorization': token
 }
 
 export const fetchCurrentUser = () => {
 	return(
 		fetch(`${API_ROOT}/auth`, {
-			headers: { 'Authorization': token }
+			headers: headers 
 		}).then(res => res.json())
 	)
 }
