@@ -1,27 +1,37 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Example from './Example'
+import Sidebar from '../components/sidebar'
 import BookList from '../components/bookList';
+import HomeList from '../components/homeList';
 import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
 
 class Dashboard extends Component {
 	state = {
+		selectedChild: 'home'
 	}
 
 	onClick = e => {
 		this.props.getByISBN('9780544568037')
 	}
-
-	ComponentDidMount() {
-		
+	
+	onChildClick = e => {
+		e.preventDefault()
+		this.setState({
+			selectedChild: e.target.name
+		})
 	}
 
 	render() {
+		console.log(this.state.selectedChild)
+		
 		return (
 			<div>
-				<Example/>
+				<Sidebar 
+					onChildClick={this.onChildClick} 
+					children={this.props.children}
+				/>
 				<div className="center-div">
 					<div className="input-group">
 						<input style={{marginTop: '10px'}} type="text" className="form-control" placeholder="Search by isbn..."/>
@@ -29,11 +39,21 @@ class Dashboard extends Component {
 							<button style={{marginTop: '10px'}} onClick={this.onClick} className="btn btn-secondary" type="button">Go!</button>
 						</span>
 					</div>
-					<BookList/>
+					{this.state.selectedChild === 'home' ?
+						<HomeList/> : 
+						<BookList child={this.props.children[this.state.selectedChild]}/>
+					}
 				</div>
 			</div>
 		)
 	}
 }
 
-export default withRouter(withAuth(connect(null, { getByISBN })(Dashboard)));
+const mapStateToProps = state => ({
+	firstName: state.auth.currentUser.firstName,
+	lastName: state.auth.currentUser.lastName,
+	accountType: state.auth.currentUser.accountType,
+	children: state.auth.currentUser.children
+})
+
+export default withRouter(withAuth(connect(mapStateToProps, { getByISBN })(Dashboard)));

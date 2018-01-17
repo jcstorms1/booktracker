@@ -24,3 +24,12 @@ body {
     width: 100%;
 }
 .navbar-brand {float:none;}
+
+.sidebar-list {
+  background: white;
+}
+
+.sidebar-menu {
+  background: white;
+  width: 40vw;
+}
