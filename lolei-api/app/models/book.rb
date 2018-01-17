@@ -1,7 +1,10 @@
 class Book < ApplicationRecord
     has_many :lists
     has_many :users, through: :list
-
+    
+    validates :title, :author, presence: true
+    validates :isbn, uniqueness: true, presence: true
+    
     def self.get_by_isbn(isbn)
 
         params = {
@@ -34,7 +37,7 @@ class Book < ApplicationRecord
         data['author'] = attributes['Author']
         data['isbn'] = attributes['ISBN']
         data['thumbnail'] = item['MediumImage']['URL']
-        data['date_read'] = Time.now.strftime("%-B %-d, %Y")
+        data
     end
 
 

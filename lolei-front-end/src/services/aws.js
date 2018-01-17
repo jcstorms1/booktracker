@@ -5,15 +5,15 @@ const token = localStorage.getItem('token');
 const headers = {
   'Content-Type': 'application/json',
   'Accepts': 'application/json',
-  'Authorization': token
+   Authorization: token
 }
 
-export const fetchISBN = isbn => {
+export const fetchISBN = (isbn, userId) => {
   return(
     fetch(`${API_ROOT}/byisbn/`, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({isbn: isbn})
+      body: JSON.stringify({isbn: isbn, user_id: userId})
     })
     .then(res => res.json())
   )

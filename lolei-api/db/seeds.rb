@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-parent = User.find(1)
+parent = User.create(first_name: "Jordan", last_name: "Storms", username: "jordan@storms.com", password: '123')
 
 child1 = User.new
 child1.first_name = Faker::Name.first_name
@@ -26,6 +26,6 @@ child2.parent_id = parent.id
 child2.save
 
 10.times do 
-    child1.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author)
-    child2.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author)
+    child1.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author, :isbn => rand(36**20).to_s(36))
+    child2.books << Book.create(:title => Faker::Book.title, :author => Faker::Book.author, :isbn => rand(36**20).to_s(36))
 end

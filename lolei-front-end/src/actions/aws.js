@@ -1,8 +1,8 @@
 import {fetchISBN} from '../services/aws'
 
-export default function getByISBN(isbn) {
+export default function getByISBN(isbn, userId) {
   return(dispatch) => {
-    fetchISBN(isbn)
+    fetchISBN(isbn, userId)
     .then(console.log)
   }
 }

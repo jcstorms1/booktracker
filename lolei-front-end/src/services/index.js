@@ -5,7 +5,7 @@ const token = localStorage.getItem('token');
 const headers = {
 	'Content-Type': 'application/json',
 	'Accepts': 'application/json',
-	'Authorization': token
+	Authorization: token
 }
 
 export const fetchCurrentUser = () => {
