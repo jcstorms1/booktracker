@@ -6,30 +6,27 @@ import BookList from '../components/bookList';
 import HomeList from '../components/homeList';
 import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
+import onChildClick from '../actions/onChange';
+
+
 
 class Dashboard extends Component {
-	state = {
-		selectedChild: 'home'
-	}
 
 	onClick = e => {
 		this.props.getByISBN('9780544568037')
 	}
 	
-	onChildClick = e => {
+	onPickChild = e => {
 		e.preventDefault()
-		this.setState({
-			selectedChild: e.target.name
-		})
+		this.props.onChildClick(e.target.name)
 	}
 
 	render() {
-		console.log(this.state.selectedChild)
-		
 		return (
+		
 			<div>
 				<Sidebar 
-					onChildClick={this.onChildClick} 
+					onPickChild={this.onPickChild} 
 					children={this.props.children}
 				/>
 				<div className="center-div">
@@ -37,11 +34,11 @@ class Dashboard extends Component {
 						<input style={{marginTop: '10px'}} type="text" className="form-control" placeholder="Search by isbn..."/>
 						<span className="input-group-btn">
 							<button style={{marginTop: '10px'}} onClick={this.onClick} className="btn btn-secondary" type="button">Go!</button>
-						</span>
+						</span>						
 					</div>
-					{this.state.selectedChild === 'home' ?
+					{this.props.selectedChild === 'home' ?
 						<HomeList/> : 
-						<BookList child={this.props.children[this.state.selectedChild]}/>
+						<BookList child={this.props.children[this.props.selectedChild]}/>
 					}
 				</div>
 			</div>
@@ -53,7 +50,8 @@ const mapStateToProps = state => ({
 	firstName: state.auth.currentUser.firstName,
 	lastName: state.auth.currentUser.lastName,
 	accountType: state.auth.currentUser.accountType,
-	children: state.auth.currentUser.children
+	children: state.auth.currentUser.children,
+	selectedChild: state.change.selectedChild
 })
 
-export default withRouter(withAuth(connect(mapStateToProps, { getByISBN })(Dashboard)));
+export default withRouter(withAuth(connect(mapStateToProps, { getByISBN, onChildClick })(Dashboard)));

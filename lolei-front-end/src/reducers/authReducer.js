@@ -4,7 +4,7 @@ export default function authReducer(state = {currentUser: {}}, action){
         case "SET_USER":
         case "LOGIN_USER":
             let user = action.res.user;
-            return(
+            return (
                 { ...state, currentUser: { 
                     id: user.id, 
                     username: user.username,
