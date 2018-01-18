@@ -1,27 +1,33 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Button, Form, FormControl, FormGroup } from 'react-bootstrap';
 import Sidebar from '../components/sidebar'
 import BookList from '../components/bookList';
 import HomeList from '../components/homeList';
+import AddChildModal from '../components/addChildModal';
 import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
 import onChildClick from '../actions/onChange';
 
 
-
 class Dashboard extends Component {
 
 	state = {
-		search: ''
+		search: '',
+		modal: false,
+		firstName: '',
+		lastName: '',
+		username: '',
+		password: ''
 	}
 
 	onClick = e => {
 		if(this.props.selectedChild==='home') {
-			this.props.getByISBN('9780544568037', this.props.userId)
+			this.props.getByISBN(this.state.search, this.props.userId)
 		} else {
 			this.props.getByISBN(
-				'9780544568037', 
+				this.state.search, 
 				this.props.children[this.props.selectedChild]['id'])
 		}
 	}
@@ -33,31 +39,67 @@ class Dashboard extends Component {
 
 	onChange = e => {
 		this.setState({
-			search: e.target.value
+			[e.target.name]: e.target.value
 		})
+	}
 
+	addChild = () => {
+		this.setState({
+			modal: true
+		})
+	}
+	
+	addChildSubmit = () => {
+		// DON'T FORGET TO PASS BACK ACCOUNT TYPE
+		this.closeModal()
+		this.props.addChildAccount()
+	}
+
+	closeModal = () => {
+		this.setState({
+			modal: false
+		})
 	}
 
 	render() {
+		console.log(this.state.firstName)
 		return (
-		
 			<div>
+				<AddChildModal 
+					onChange={this.onChange}
+					modal={this.state.modal}
+					firstName={this.state.firstName}
+					lastName={this.state.lastName}
+					username={this.state.username}
+					password={this.state.password}
+				/>
+			<div>				
 				<Sidebar 
 					onPickChild={this.onPickChild} 
 					children={this.props.children}
+					addChild={this.addChild}
 				/>
 				<div className="center-div">
-					<div className="input-group">
-						<input style={{marginTop: '10px'}} onChange={this.onChange} value={this.state.search} type="text" className="form-control" placeholder="Search by isbn..."/>
-						<span className="input-group-btn">
-							<button style={{marginTop: '10px'}} onClick={this.onClick} className="btn btn-secondary" type="button">Go!</button>
-						</span>						
-					</div>
+					<Form inline>
+						<FormGroup>
+							<FormControl
+								style={{marginTop: '10px'}} 
+								onChange={this.onChange} 
+								value={this.state.search} 
+								type="text" 
+								name="search"
+								className="form-control" 
+								placeholder="Search by isbn..."
+								/>
+							<Button style={{marginTop: '10px'}}	onClick={this.onClick} bsStyle="primary">Go!</Button>
+						</FormGroup>
+					</Form>
 					{this.props.selectedChild === 'home' ?
 						<HomeList/> : 
 						<BookList child={this.props.children[this.props.selectedChild]}/>
 					}
 				</div>
+			</div>
 			</div>
 		)
 	}

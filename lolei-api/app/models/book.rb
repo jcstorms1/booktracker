@@ -29,12 +29,14 @@ class Book < ApplicationRecord
     end
 
     def self.pull_data_from_json(json)
+        
         data = {}
-        item = json['ItemLookupResponse']['Items']['Item']
+
+        item = json['ItemLookupResponse']['Items']['Item'][0] || json['ItemLookupResponse']['Items']['Item']
         attributes = item['ItemAttributes']
 
         data['title'] = attributes['Title']
-        data['author'] = attributes['Author']
+        data['author'] = attributes['Author'] || "N/A"
         data['isbn'] = attributes['ISBN']
         data['thumbnail'] = item['MediumImage']['URL']
         data

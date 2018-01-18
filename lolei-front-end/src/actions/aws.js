@@ -1,8 +1,14 @@
-import {fetchISBN} from '../services/aws'
+import { fetchISBN } from '../services/aws'
 
 export default function getByISBN(isbn, userId) {
   return(dispatch) => {
     fetchISBN(isbn, userId)
-    .then(console.log)
+    .then(res => {
+      if (res.error) {
+        alert('Oops! This book is already in your list.')
+      } else {
+        dispatch({type: "GET_ISBN", res})
+      }
+    })
   }
 }

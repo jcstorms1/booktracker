@@ -61,7 +61,8 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => ({
-  loggedIn: !!state.auth.currentUser.id
+  loggedIn: !!state.auth.currentUser.id,
+  ...state
 })
 
 export default withRouter(connect(mapStateToProps, { logoutUser, getCurrentUser })(App));

@@ -1,5 +1,6 @@
 import React from 'react';
-import {bubble as Menu} from 'react-burger-menu';
+import { bubble as Menu } from 'react-burger-menu';
+import { Button } from 'react-bootstrap';
 import '../styling/menu.css'
 
 const Sidebar = props => {
@@ -18,6 +19,7 @@ const Sidebar = props => {
 				
 				<a name="home" href="/dashboard" className="menu-item" onClick={props.onChildClick}>Home</a>
 				{children}
+				<Button onClick={props.addChild} style={{marginTop: '50vh'}}>Add An Account</Button>
 			</Menu>
 		</div>
 	);
