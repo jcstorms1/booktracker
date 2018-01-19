@@ -7,7 +7,7 @@ class Signup extends Component {
 	state = {
 		firstName: '',
 		lastName: '',
-		email: '',
+		username: '',
 		password: '',
 		accountType: 'Parent'
 	}
@@ -47,7 +47,7 @@ class Signup extends Component {
 						<ControlLabel>Email:</ControlLabel>
 						<FormControl
 							type="email"
-							name="email"
+							name="username"
 							onChange={this.onChange}
 							value={this.state.email}                    
 							placeholder="email@address.com"

@@ -42,9 +42,13 @@ export function createUser(formData, history) {
 			if(res.errors) {
 				alert(res.errors)
 			} else {
-				localStorage.setItem('token', res.token)
-				dispatch({type: 'SET_USER', res})
-				history.push('/dashboard')
+				if (res.token) {
+					localStorage.setItem('token', res.token)
+					dispatch({type: 'SET_USER', res})
+					history.push('/dashboard')
+				} else {
+					dispatch({type: 'SET_USER', res})
+				}
 			}
 		})
 	}

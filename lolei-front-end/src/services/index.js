@@ -31,7 +31,7 @@ export const signup = data => {
 		fetch(`${API_ROOT}/users/`, {
 			method: 'post',
 			headers: headers,
-			body: JSON.stringify(data)
+			body: JSON.stringify({user: data})
 		}).then(res => res.json())
 	)
 }
