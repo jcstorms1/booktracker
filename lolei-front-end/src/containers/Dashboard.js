@@ -8,7 +8,7 @@ import HomeList from '../components/homeList';
 import AddChildModal from '../components/addChildModal';
 import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
-import onChildClick from '../actions/onChange';
+import { onChildClick, addChildAccount } from '../actions/onChange';
 
 
 class Dashboard extends Component {
@@ -52,7 +52,14 @@ class Dashboard extends Component {
 	addChildSubmit = () => {
 		// DON'T FORGET TO PASS BACK ACCOUNT TYPE
 		this.closeModal()
-		this.props.addChildAccount()
+		this.props.addChildAccount({
+			  firstName: this.state.firstName,
+				lastName: this.state.lastName,
+				username: this.state.username,
+				password: this.state.password,
+				accountType: "Child",
+				parentId: this.props.userId
+		})
 	}
 
 	closeModal = () => {
@@ -62,12 +69,13 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		console.log(this.state.firstName)
 		return (
 			<div>
 				<AddChildModal 
 					onChange={this.onChange}
 					modal={this.state.modal}
+					closeModal={this.closeModal}
+					addChildSubmit={this.addChildSubmit}
 					firstName={this.state.firstName}
 					lastName={this.state.lastName}
 					username={this.state.username}
@@ -111,7 +119,8 @@ const mapStateToProps = state => ({
 	lastName: state.auth.currentUser.lastName,
 	accountType: state.auth.currentUser.accountType,
 	children: state.auth.currentUser.children,
-	selectedChild: state.change.selectedChild
+	selectedChild: state.change.selectedChild,
+	addChildAccount: state.change.addChildAccount
 })
 
 export default withRouter(withAuth(connect(mapStateToProps, { getByISBN, onChildClick })(Dashboard)));

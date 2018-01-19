@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApplicationController
         else
             render json: {errors: user.errors.full_messages}
         end
-        
+         
     end
 
     private

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Form, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap';
-
+import '../styling/modal.css'
 
 const AddChildModal = props => {
 	return(
@@ -9,10 +9,10 @@ const AddChildModal = props => {
 			<Modal.Title>Add A Child To Your Account</Modal.Title>
 		</Modal.Header>
 		<Modal.Body>
-			<Form>
+			<Form horizontal>
 				<FormGroup>
-					<Col componentClass={ControlLabel} sm={2}>First name:</Col>
-					<Col sm={10}>
+					<Col componentClass={ControlLabel} sm={3}>First name:</Col>
+					<Col sm={8}>
 						<FormControl 
 							type="text" 
 							name="firstName"
@@ -20,9 +20,9 @@ const AddChildModal = props => {
 							value={props.firstName}/>
 					</Col>
 				</FormGroup>
-				<FormGroup controlId="formHorizontalPassword">
-					<Col componentClass={ControlLabel} sm={2}>Last name:</Col>
-					<Col sm={10}>
+				<FormGroup >
+					<Col componentClass={ControlLabel} sm={3}>Last name:</Col>
+					<Col sm={8}>
 						<FormControl 
 							type="text"
 							name="lastName"
@@ -30,9 +30,9 @@ const AddChildModal = props => {
 							value={props.lastName}/>
 					</Col>
 				</FormGroup>
-				<FormGroup controlId="formHorizontalPassword">
-					<Col componentClass={ControlLabel} sm={2}>Username:</Col>
-					<Col sm={10}>
+				<FormGroup>
+					<Col componentClass={ControlLabel} sm={3}>Username:</Col>
+					<Col sm={8}>
 						<FormControl 
 							type="text"
 							name="username"
@@ -40,9 +40,9 @@ const AddChildModal = props => {
 							value={props.username}/>
 					</Col>
 				</FormGroup>
-				<FormGroup controlId="formHorizontalPassword">
-					<Col componentClass={ControlLabel} sm={2}>Password:</Col>
-					<Col sm={10}>
+				<FormGroup>
+					<Col componentClass={ControlLabel} sm={3}>Password:</Col>
+					<Col sm={8}>
 						<FormControl 
 							type="password" 
 							name="password"
@@ -51,9 +51,11 @@ const AddChildModal = props => {
 					</Col>
 				</FormGroup>
 			</Form>					
-			<Button onClick={props.closeModal}>Close</Button>
-			<Button bsStyle="primary">Save changes</Button>
 		</Modal.Body>
+		<Modal.Footer>
+			<Button onClick={props.closeModal}>Close</Button>
+			<Button onClick={props.addChildSubmit} bsStyle="primary">Save changes</Button>
+		</Modal.Footer>
 </Modal>
 	)
 }
