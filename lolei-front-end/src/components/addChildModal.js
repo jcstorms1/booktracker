@@ -1,62 +1,56 @@
 import React from 'react';
-import { Modal, Button, Form, FormControl, FormGroup, Col, ControlLabel } from 'react-bootstrap';
+import { Modal, Header, Button, Form } from 'semantic-ui-react';
 import '../styling/modal.css'
 
 const AddChildModal = props => {
 	return(
-		<Modal show={props.modal}>
-		<Modal.Header>
-			<Modal.Title>Add A Child To Your Account</Modal.Title>
-		</Modal.Header>
-		<Modal.Body>
-			<Form horizontal>
-				<FormGroup>
-					<Col componentClass={ControlLabel} sm={3}>First name:</Col>
-					<Col sm={8}>
-						<FormControl 
-							type="text" 
-							name="firstName"
-							onChange={props.onChange}
-							value={props.firstName}/>
-					</Col>
-				</FormGroup>
-				<FormGroup >
-					<Col componentClass={ControlLabel} sm={3}>Last name:</Col>
-					<Col sm={8}>
-						<FormControl 
-							type="text"
-							name="lastName"
-							onChange={props.onChange}							
-							value={props.lastName}/>
-					</Col>
-				</FormGroup>
-				<FormGroup>
-					<Col componentClass={ControlLabel} sm={3}>Username:</Col>
-					<Col sm={8}>
-						<FormControl 
-							type="text"
-							name="username"
-							onChange={props.onChange}							
-							value={props.username}/>
-					</Col>
-				</FormGroup>
-				<FormGroup>
-					<Col componentClass={ControlLabel} sm={3}>Password:</Col>
-					<Col sm={8}>
-						<FormControl 
-							type="password" 
-							name="password"
-							onChange={props.onChange}							
-							value={props.password}/>
-					</Col>
-				</FormGroup>
+	<Modal size="small" open={props.modal}>
+		<Header  icon="child" content="Add A Child To Your Account"/> 
+		<Modal.Content>
+			<Form>
+				<Form.Field>
+					<label>First Name:</label>
+					<input 
+						type="text" 
+						name="firstName"
+						onChange={props.onChange}
+						value={props.firstName}
+					/>
+				</Form.Field>
+				<Form.Field >
+					<label>Last Name:</label>
+					<input
+						type="text"
+						name="lastName"
+						onChange={props.onChange}							
+						value={props.lastName}
+					/>
+				</Form.Field>
+				<Form.Field>
+					<label>Username:</label>
+					<input
+						type="text"
+						name="username"
+						onChange={props.onChange}							
+						value={props.username}
+					/>
+				</Form.Field>
+				<Form.Field>
+				<label>Password:</label>
+					<input
+						type="password" 
+						name="password"
+						onChange={props.onChange}							
+						value={props.password}
+					/>
+				</Form.Field>
 			</Form>					
-		</Modal.Body>
-		<Modal.Footer>
-			<Button onClick={props.closeModal}>Close</Button>
-			<Button onClick={props.addChildSubmit} bsStyle="primary">Save changes</Button>
-		</Modal.Footer>
-</Modal>
+		</Modal.Content>
+		<Modal.Actions>
+			<Button inverted color='red' onClick={props.closeModal}>Cancel</Button>
+			<Button inverted color='green' onClick={props.addChildSubmit}>Save changes</Button>
+		</Modal.Actions>
+	</Modal>
 	)
 }
 
