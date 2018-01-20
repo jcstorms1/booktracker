@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Form, FormControl, FormGroup } from 'react-bootstrap';
+import { Card, Header } from 'semantic-ui-react';
 import Sidebar from '../components/sidebar'
 import BookList from '../components/bookList';
 import HomeList from '../components/homeList';
@@ -70,6 +71,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
+		console.log(this.props.children)
 		return (
 			<div>
 				<AddChildModal 
@@ -103,10 +105,12 @@ class Dashboard extends Component {
 							<Button style={{marginTop: '10px'}}	onClick={this.onClick} bsStyle="primary">Go!</Button>
 						</FormGroup>
 					</Form>
+					<div style={{ marginTop: '50px'}}>
 					{this.props.selectedChild === 'home' ?
-						<HomeList/> : 
+						<HomeList children={this.props.children}/> :
 						<BookList child={this.props.children[this.props.selectedChild]}/>
 					}
+					</div>
 				</div>
 			</div>
 			</div>
@@ -122,6 +126,7 @@ const mapStateToProps = state => ({
 	children: state.auth.currentUser.children || [],
 	selectedChild: state.change.selectedChild,
 	addChildAccount: state.change.addChildAccount
+
 })
 
 export default withRouter(withAuth(connect(mapStateToProps, { getByISBN, onChildClick, createUser })(Dashboard)));

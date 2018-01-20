@@ -34,11 +34,18 @@ class Book < ApplicationRecord
 
         item = json['ItemLookupResponse']['Items']['Item'][0] || json['ItemLookupResponse']['Items']['Item']
         attributes = item['ItemAttributes']
-
+        author = attributes['Author']
+        
+        if attributes['Author'].kind_of?(Array)
+            author = author.join(' & ')
+        else
+            author = author || "N/A"
+        end
+        
         data['title'] = attributes['Title']
-        data['author'] = attributes['Author'] || "N/A"
+        data['author'] = author
         data['isbn'] = attributes['ISBN']
-        data['thumbnail'] = item['MediumImage']['URL']
+        data['thumbnail'] = item['LargeImage']['URL']
         data
     end
 

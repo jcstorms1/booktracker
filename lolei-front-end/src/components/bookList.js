@@ -1,24 +1,40 @@
 import React from 'react';
 import * as moment from 'moment';
+import { Card, Image, Rating } from 'semantic-ui-react';
 
 const BookList = props => {
 	const childBooks = props.child.books.map((book, index) => {
+		console.log(book.author.constructor)
 		return(
-			<div key={index} className="card-deck" style={{ marginTop: '100px'}}>
-			<div className="card">
-				<img className="card-img-top" src={book['thumbnail']} alt="Card cap"/>
-				<div className="card-block">
-					<h4 className="card-title">{book['title']}</h4>
-					<p className="card_text">Author: {book['author']}</p>
-					<p className="card-text"><small className="text-muted">Read on {moment(book['read_at']).format("M/DD/YYYY")}</small></p>
-				</div>
-			</div>
-			</div>
+			<Card key={index}>
+				<Image size="medium" src={book.thumbnail}/>
+				<Card.Content>
+					<Card.Header>
+						{book.title}
+					</Card.Header>
+					<Card.Meta>
+						<span className='date'>
+						Read on {moment(book['read_at']).format("M/DD/YYYY")}
+						</span>
+					</Card.Meta>
+					<Card.Description>
+						{book.author.constructor === Array ?
+							book.author.join(' & ') :
+							book.author}
+					</Card.Description>
+					</Card.Content>
+					<Card.Content extra>
+				<Rating icon='heart'>Favorite</Rating>
+				</Card.Content>
+			</Card>
 		)				
 	})
 	return(
 		<div>
+			<Card.Group itemsPerRow={3}>
 			{childBooks}
+			</Card.Group>
+
 		</div>
 	)
 }
