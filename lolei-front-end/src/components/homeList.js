@@ -1,12 +1,14 @@
 import React from 'react';
-import * as moment from 'moment';
-import { Button, Card, Image, Rating, Header} from 'semantic-ui-react'
 import  ParentBookList  from './parentBookList';
 
 const HomeList = props => {
 	const childBooks = props.children.map((child,index) => {
 		return(
-			<ParentBookList child={child}/>	
+			<ParentBookList
+				key={index}
+				child={child}
+				onFavorite={props.onFavorite}
+			/>
 		)
 	})
 
@@ -14,7 +16,7 @@ const HomeList = props => {
 		<div>
 			{childBooks}
 		</div>
-		
+
 	)
 }
 

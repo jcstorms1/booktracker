@@ -1,6 +1,6 @@
 import React from 'react';
 import * as moment from 'moment';
-import { Card, Image, Rating, Header} from 'semantic-ui-react';
+import { Card, Button, Image, Rating, Header, Reveal} from 'semantic-ui-react';
 
 const BookList = props => {
 	let books = props.child ? props.child.books : props.books
@@ -8,9 +8,10 @@ const BookList = props => {
 	const sortedBooks = books.sort((a, b) => {
 		return Date.parse(b.read_at) - Date.parse(a.read_at)
 	}).map((book, index) => {
+		console.log(book.list_id)
 		return(
 			<Card key={index}>
-				<Image size="medium" src={book.thumbnail}/>
+						<Image size="medium" src={book.thumbnail}/>
 				<Card.Content>
 					<Card.Header>
 						{book.title}
@@ -27,7 +28,15 @@ const BookList = props => {
 					</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
-						<Header textAlign='center'><Rating onClick={()=>console.log('clicked')} icon='heart'/></Header>
+						<Header textAlign='center'>
+							<Rating 
+								clearable 
+								name={book.list_id} 
+								onRate={props.onFavorite} 
+								defaultRating={book.favorite} 
+								icon='heart'
+							/>
+						</Header>
 				</Card.Content>
 			</Card>
 		)				

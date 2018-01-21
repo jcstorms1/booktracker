@@ -12,7 +12,7 @@ const Sidebar = props => {
 
 	return (
 		<div>
-			<Menu noOverlay>
+			<Menu noOverlay style={{height: '100vh'}}>
 				<a name="home" href="/dashboard" className="menu-item" onClick={props.onChildClick}>Home</a>
 				{children}
 				<Button onClick={props.addChild} style={{marginTop: '50vh'}}>Add An Account</Button>

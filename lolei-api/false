@@ -1,0 +1,2 @@
+      invoke  active_record
+      create    db/migrate/20180121185614_add_favorite_column_to_lists.rb

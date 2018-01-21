@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, Input, Card, Header } from 'semantic-ui-react';
+import { Form, Header } from 'semantic-ui-react';
 import Sidebar from '../components/sidebar'
 import BookList from '../components/bookList';
 import NoBook from '../components/noBook';
@@ -11,6 +11,7 @@ import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
 import { onChildClick } from '../actions/onChange';
 import { createUser } from '../actions/'
+import { updateFavorites } from '../services/onChange';
 
 
 class Dashboard extends Component {
@@ -41,7 +42,7 @@ class Dashboard extends Component {
 
 	onChange = e => {
 		this.setState({
-			[e.target.name]: e.target.value
+			[e.target.name]: e.target.rating
 		})
 	}
 
@@ -62,6 +63,10 @@ class Dashboard extends Component {
 				accountType: "Child",
 				parentId: this.props.userId
 		}, this.props.history)
+	}
+
+	onFavorite = (e, {name, rating}) => {
+		updateFavorites(name, !!rating)
 	}
 
 	closeModal = () => {
@@ -109,11 +114,16 @@ class Dashboard extends Component {
 					<div style={{ marginTop: '50px'}}>
 					{this.props.selectedChild === 'home' 
 						?
-						<HomeList children={this.props.children}/> 
+						<HomeList 
+						onFavorite={this.onFavorite}
+						children={this.props.children}/> 
 						:
 							this.props.children[this.props.selectedChild].books.length !== 0 
 							?
-							<BookList child={this.props.children[this.props.selectedChild]}/> 
+							<BookList 
+								onFavorite={this.onFavorite} 
+								child={this.props.children[this.props.selectedChild]}
+							/> 
 							:
 							<NoBook child={this.props.children[this.props.selectedChild]}/>
 					}
@@ -133,7 +143,6 @@ const mapStateToProps = state => ({
 	children: state.auth.currentUser.children || [],
 	selectedChild: state.change.selectedChild,
 	addChildAccount: state.change.addChildAccount
-
 })
 
 export default withRouter(withAuth(connect(mapStateToProps, { getByISBN, onChildClick, createUser })(Dashboard)));

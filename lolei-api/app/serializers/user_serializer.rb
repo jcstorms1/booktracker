@@ -7,7 +7,7 @@ class UserSerializer < ActiveModel::Serializer
 
   def children
     object.children.map do |child|
-    child_books = child.lists.map {|l| {read_at: l.created_at}.merge(l.book.attributes)}
+    child_books = child.lists.map {|l| {read_at: l.created_at, favorite: l.favorite, list_id: l.id}.merge(l.book.attributes)}
     
     child.attributes.merge({books: child_books})
 

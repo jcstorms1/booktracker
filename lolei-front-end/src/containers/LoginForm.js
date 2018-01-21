@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { loginUser } from '../actions';
-import { FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Button, Form, Grid, Header,Segment, Icon } from 'semantic-ui-react'
+import '../styling/loginForm.css';
 
 class LoginForm extends Component {
 
@@ -24,18 +25,37 @@ class LoginForm extends Component {
 	
 	render() {
 		return(
-			<div className='center-div'>
-				<form>
-					<FormGroup>
-						<ControlLabel>Email address</ControlLabel>
-						<FormControl type="email" onChange= {this.onChange} name="username" value={this.state.username} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
-					</FormGroup>
-					<FormGroup>
-						<ControlLabel>Password</ControlLabel>
-						<FormControl type="password" onChange= {this.onChange} name="password" value={this.state.password} className="form-control" id="exampleInputPassword1" placeholder="Password"/>
-					</FormGroup>
-					<Button onClick={this.onSubmit} bsStyle="primary">Submit</Button>
-				</form>      
+			<div className='login-form'>
+				<Grid id='login' textAlign='center' style={{ height: '100%'}} verticalAlign='middle'>
+					<Grid.Column style={{ maxWidth: 450 }}>
+						<Header id='login-header' as='h2'  textAlign='center'>
+						<Icon name='book'/>{' '}Log-in to your account
+						</Header>
+						<Form size='large'>
+							<Segment stacked>
+								<Form.Input fluid
+									icon='user'
+									iconPosition='left'
+									type='text' 
+									name="username" 
+									placeholder="Enter username"
+									onChange= {this.onChange} 
+									value={this.state.username}
+								/>
+								<Form.Input fluid
+									icon='lock'
+									iconPosition='left'
+									type="password" 
+									name="password" 
+									placeholder="Password"
+									onChange= {this.onChange} 
+									value={this.state.password} 
+								/>
+								<Button fluid size='large' color='orange' onClick={this.onSubmit}>Submit</Button>		
+							</Segment>
+						</Form>
+					</Grid.Column>
+				</Grid>
 			</div>
 	)}
 }
