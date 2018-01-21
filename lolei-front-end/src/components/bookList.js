@@ -11,7 +11,7 @@ const BookList = props => {
 		console.log(book.list_id)
 		return(
 			<Card key={index}>
-						<Image size="medium" src={book.thumbnail}/>
+					<Image size="medium" src={book.thumbnail}/>
 				<Card.Content>
 					<Card.Header>
 						{book.title}
