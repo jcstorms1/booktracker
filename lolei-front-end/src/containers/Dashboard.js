@@ -71,6 +71,7 @@ class Dashboard extends Component {
 	}
 
 	render() {
+		console.log(this.props.children[this.props.selectedChild])
 		return (
 			<div>
 				<AddChildModal 
@@ -106,10 +107,14 @@ class Dashboard extends Component {
 						</Form.Group>
 					</Form>
 					<div style={{ marginTop: '50px'}}>
-					{this.props.selectedChild === 'home' ?
-						<HomeList children={this.props.children}/> :
-							this.props.children[this.props.selectedChild].books.length !== 0 ?
-							<BookList child={this.props.children[this.props.selectedChild]}/> :
+					{this.props.selectedChild === 'home' 
+						?
+						<HomeList children={this.props.children}/> 
+						:
+							this.props.children[this.props.selectedChild].books.length !== 0 
+							?
+							<BookList child={this.props.children[this.props.selectedChild]}/> 
+							:
 							<NoBook child={this.props.children[this.props.selectedChild]}/>
 					}
 					</div>

@@ -3,7 +3,9 @@ import * as moment from 'moment';
 import { Card, Image, Rating, Header} from 'semantic-ui-react';
 
 const BookList = props => {
-	const sortedBooks = props.child.books.sort((a, b) => {
+	let books = props.child ? props.child.books : props.books
+	
+	const sortedBooks = books.sort((a, b) => {
 		return Date.parse(b.read_at) - Date.parse(a.read_at)
 	}).map((book, index) => {
 		return(
@@ -25,7 +27,7 @@ const BookList = props => {
 					</Card.Description>
 				</Card.Content>
 				<Card.Content extra>
-						<Header textAlign='center'><Rating onClick={()=>console.log('clicked')} size='big' icon='heart'/></Header>
+						<Header textAlign='center'><Rating onClick={()=>console.log('clicked')} icon='heart'/></Header>
 				</Card.Content>
 			</Card>
 		)				
