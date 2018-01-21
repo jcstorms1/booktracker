@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Form, FormControl, FormGroup } from 'react-bootstrap';
-import { Card, Header } from 'semantic-ui-react';
+import { Form, Input, Card, Header } from 'semantic-ui-react';
 import Sidebar from '../components/sidebar'
 import BookList from '../components/bookList';
+import NoBook from '../components/noBook';
 import HomeList from '../components/homeList';
 import AddChildModal from '../components/addChildModal';
 import  withAuth  from '../hocs/withAuth'
@@ -71,7 +71,6 @@ class Dashboard extends Component {
 	}
 
 	render() {
-		console.log(this.props.children)
 		return (
 			<div>
 				<AddChildModal 
@@ -91,24 +90,27 @@ class Dashboard extends Component {
 					addChild={this.addChild} 
 				/>
 				<div className="center-div">
-					<Form inline>
-						<FormGroup>
-							<FormControl
-								style={{marginTop: '10px'}} 
+					<Form onSubmit={this.onClick}>
+						<Form.Field>
+							<Header textAlign="center">Add a new book by ISBN</Header>
+						</Form.Field>
+						<Form.Group>
+							<input
 								onChange={this.onChange} 
 								value={this.state.search} 
 								type="text" 
 								name="search"
-								className="form-control" 
-								placeholder="Search by isbn..."
+								placeholder="Search by a single isbn..."
 								/>
-							<Button style={{marginTop: '10px'}}	onClick={this.onClick} bsStyle="primary">Go!</Button>
-						</FormGroup>
+							<Form.Button inverted color="green" content="Submit"/>
+						</Form.Group>
 					</Form>
 					<div style={{ marginTop: '50px'}}>
 					{this.props.selectedChild === 'home' ?
 						<HomeList children={this.props.children}/> :
-						<BookList child={this.props.children[this.props.selectedChild]}/>
+							this.props.children[this.props.selectedChild].books.length !== 0 ?
+							<BookList child={this.props.children[this.props.selectedChild]}/> :
+							<NoBook child={this.props.children[this.props.selectedChild]}/>
 					}
 					</div>
 				</div>

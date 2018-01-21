@@ -1,39 +1,51 @@
 import React from 'react';
-import { Button, Card, Image, Rating,Icon} from 'semantic-ui-react'
+import * as moment from 'moment';
+import { Button, Card, Image, Rating, Header} from 'semantic-ui-react'
 
 const HomeList = props => {
-	console.log(props)
 	const childBooks = props.children.map((child,index) => {
-		// return (
-			// <div>
-			// 	<Card fluid color='red' header={child.firstName}>Recently Read Books</Card>
-			// 	<Card.Group itemsPerRow={3}>
-			// 		<Card>
-			// 			<Image size="medium" src={child.books[-1].thumbnail}/>
-			// 			<Card.Content>
-			// 				<Card.Header>
-			// 				</Card.Header>
-			// 				<Card.Meta>
-			// 					<span className='date'>
-			// 					{child.books[-1].read_at}
-			// 					</span>
-			// 				</Card.Meta>
-			// 				<Card.Description>
-			// 					{child.books[-1].title}
-			// 				</Card.Description>
-			// 				</Card.Content>
-			// 				<Card.Content extra>
-			// 			<Rating icon='heart'>Favorite</Rating>
-			// 			</Card.Content>
-			// 		</Card>
-			// 	</Card.Group>
-			// </div>
-	// 	)
 		
+		let bookList = child.books
+		if (bookList.length !== 0) {
+			let recentBooks = bookList.slice(-3)
+			return (
+			recentBooks.sort((a,b) => {
+				return Date.parse(b.read_at) - Date.parse(a.read_at)
+			}).map((book, index) => {
+				return (
+					<div>
+						<Card key={index}>
+							<Image size="medium" src={book.thumbnail}/>
+							<Card.Content>
+								<Card.Header>
+									{book.title}
+								</Card.Header>
+								<Card.Meta>
+									<span className='date'>
+										Read on {moment(book['read_at']).format("M/DD/YYYY")}
+									</span>
+								</Card.Meta>
+								<Card.Description>
+									{book.author.constructor === Array ?
+										book.author.join(' & ') :
+										book.author}
+								</Card.Description>
+							</Card.Content>
+							<Card.Content extra>
+									<Header textAlign='center'><Rating onClick={()=>console.log('clicked')} icon='heart'/></Header>
+							</Card.Content>
+						</Card>
+					</div>
+				)
+			}))
+		} else {
+			<div></div>
+		}
 	})
 	return (
-		<div></div>
-		// {childBooks}
+		<Card.Group itemsPerRow={3}>
+			{childBooks}
+		</Card.Group>
 	)
 }
 

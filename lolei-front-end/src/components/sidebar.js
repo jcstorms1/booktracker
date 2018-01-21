@@ -1,6 +1,6 @@
 import React from 'react';
 import { bubble as Menu } from 'react-burger-menu';
-import { Button } from 'react-bootstrap';
+import { Button } from 'semantic-ui-react';
 import '../styling/menu.css'
 
 const Sidebar = props => {
