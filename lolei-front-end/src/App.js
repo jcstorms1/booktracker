@@ -4,7 +4,7 @@ import {Route, withRouter} from 'react-router-dom';
 
 import { getCurrentUser, logoutUser } from './actions';
 
-import Nav from './components/navbar';
+import Nav from './containers/Navbar';
 import LoginForm from './containers/LoginForm';
 import LandingPage from './components/landingPage';
 import Dashboard from './containers/Dashboard';
@@ -28,7 +28,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Nav onLogout={this.onLogout}/>
         <div>
           <Route
             exact
@@ -48,7 +47,7 @@ class App extends Component {
           <Route
             exact
             path='/dashboard'
-            component={Dashboard}
+            render={() => <Dashboard onLogout={this.onLogout}/>}
           />
           <Route
             exact

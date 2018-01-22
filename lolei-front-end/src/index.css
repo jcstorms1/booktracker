@@ -4,14 +4,28 @@ body {
   font-family: sans-serif;
 }
 
-.navbar {
-  background: orange;
-  z-index: 1000;
-}
-
 .center-div {
   margin: 0 auto;
   margin-top: 15vh;
   width: 50vw;
 }
 
+.other-hover-card:hover {
+  opacity: 1;
+  
+}
+
+.other-hover-card {
+  opacity: 0 ;
+  background: black;
+  position: absolute;
+  transition: opacity 1s;
+}
+
+.parent-header {
+  top: 5vh;
+}
+
+.sidebar-menu {
+  top: 50vh;
+}

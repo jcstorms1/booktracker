@@ -9,6 +9,7 @@ class Api::V1::UsersController < ApplicationController
 
     def create
         user = User.create({
+            
             :first_name => user_params[:firstName].capitalize,
             :last_name => user_params[:lastName].capitalize,
             :username=> user_params[:username],

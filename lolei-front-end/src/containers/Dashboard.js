@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, Header } from 'semantic-ui-react';
-import Sidebar from '../components/sidebar'
+import { Form, Button, Header, Menu, Icon, 
+					Segment, Sidebar, Accordion} from 'semantic-ui-react';
+// import Sidebar from '../components/sidebar'
 import BookList from '../components/bookList';
 import NoBook from '../components/noBook';
 import HomeList from '../components/homeList';
@@ -22,7 +23,8 @@ class Dashboard extends Component {
 		firstName: '',
 		lastName: '',
 		username: '',
-		password: ''
+		password: '',
+		menuVisible: false
 	}
 
 	onClick = e => {
@@ -42,7 +44,7 @@ class Dashboard extends Component {
 
 	onChange = e => {
 		this.setState({
-			[e.target.name]: e.target.rating
+			[e.target.name]: e.target.value
 		})
 	}
 
@@ -52,9 +54,12 @@ class Dashboard extends Component {
 		})
 	}
 	
-	addChildSubmit = () => {
+	addChildSubmit = (e) => {
 		// DON'T FORGET TO PASS BACK ACCOUNT TYPE
+		e.preventDefault()
+		console.log(this.state)
 		this.closeModal()
+		debugger;
 		this.props.createUser({
 			  firstName: this.state.firstName,
 				lastName: this.state.lastName,
@@ -75,10 +80,17 @@ class Dashboard extends Component {
 		})
 	}
 
+	toggleMenuVisible = () => {
+		this.setState({
+			menuVisible: !this.state.menuVisible
+		})
+	}
+
 	render() {
-		console.log(this.props.children[this.props.selectedChild])
 		return (
+
 			<div>
+				
 				<AddChildModal 
 					onChange={this.onChange}
 					modal={this.state.modal}
@@ -89,48 +101,79 @@ class Dashboard extends Component {
 					username={this.state.username}
 					password={this.state.password}
 				/>
-			<div>				
-				<Sidebar 
+				{/* <Sidebar 
 					onPickChild={this.onPickChild} 
 					children={this.props.children}
-					addChild={this.addChild} 
-				/>
-				<div className="center-div">
-					<Form onSubmit={this.onClick}>
-						<Form.Field>
-							<Header textAlign="center">Add a new book by ISBN</Header>
-						</Form.Field>
-						<Form.Group>
-							<input
-								onChange={this.onChange} 
-								value={this.state.search} 
-								type="text" 
-								name="search"
-								placeholder="Search by a single isbn..."
-								/>
-							<Form.Button inverted color="green" content="Submit"/>
-						</Form.Group>
-					</Form>
-					<div style={{ marginTop: '50px'}}>
-					{this.props.selectedChild === 'home' 
-						?
-						<HomeList 
-						onFavorite={this.onFavorite}
-						children={this.props.children}/> 
-						:
-							this.props.children[this.props.selectedChild].books.length !== 0 
-							?
-							<BookList 
-								onFavorite={this.onFavorite} 
-								child={this.props.children[this.props.selectedChild]}
-							/> 
-							:
-							<NoBook child={this.props.children[this.props.selectedChild]}/>
-					}
-					</div>
-				</div>
+				addChild={this.addChild}*/} 
+				<Menu fixed="top">
+					<Menu.Item id='my-menu-header' as='h3' header>
+						LoLei
+					</Menu.Item>
+					<Menu.Item onClick={this.toggleMenuVisible} >
+						<Icon name="sidebar" />Menu
+					</Menu.Item>         
+					<Menu.Item position='right'>
+						<Button color='grey' onClick={ this.props.onLogout }>Log Out</Button>
+					</Menu.Item> 
+				</Menu>
+				<Sidebar.Pushable as={Segment} attached="bottom">
+					<Sidebar width='thin' as={Menu} animation="uncover" style={{top: '5vh'}}visible={this.state.menuVisible} icon="labeled" vertical inline inverted>
+						<Menu.Item name='home' active='home'>
+							<Icon name="home" />Home
+						</Menu.Item>
+						<Menu.Item>
+							<Icon name="child" />Kids
+							<Menu.Menu>
+								<Menu.Item><Button>hi</Button></Menu.Item>
+								<Menu.Item>sub2</Menu.Item>
+							</Menu.Menu>
+						</Menu.Item>
+						<Menu.Item>
+							<Icon name="user plus" />Add A Child
+						</Menu.Item>
+					</Sidebar>
+					<Sidebar.Pusher dimmed={this.state.menuVisible}>
+            <Segment basic style={{backgroundColor: 'lightblue'}}>
+							<div className="center-div">
+						
+								<Form onSubmit={this.onClick}>
+									<Form.Field>
+										<Header textAlign="center">Add a new book by ISBN</Header>
+									</Form.Field>
+									<Form.Group>
+										<input
+											onChange={this.onChange} 
+											value={this.state.search} 
+											type="text" 
+											name="search"
+											placeholder="Search by a single isbn..."
+											/>
+										<Form.Button inverted color="green" content="Submit"/>
+									</Form.Group>
+								</Form>
+								<div style={{ marginTop: '50px'}}>
+								{this.props.selectedChild === 'home' 
+									?
+									<HomeList 
+									onFavorite={this.onFavorite}
+									children={this.props.children}/> 
+									:
+										this.props.children[this.props.selectedChild].books.length !== 0 
+										?
+										<BookList 
+											onFavorite={this.onFavorite} 
+											child={this.props.children[this.props.selectedChild]}
+										/> 
+										:
+										<NoBook child={this.props.children[this.props.selectedChild]}/>
+								}
+								</div>
+							</div>
+						</Segment>
+					</Sidebar.Pusher>
+				</Sidebar.Pushable>
 			</div>
-			</div>
+			
 		)
 	}
 }
