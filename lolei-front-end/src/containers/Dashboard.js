@@ -57,9 +57,7 @@ class Dashboard extends Component {
 	addChildSubmit = (e) => {
 		// DON'T FORGET TO PASS BACK ACCOUNT TYPE
 		e.preventDefault()
-		console.log(this.state)
 		this.closeModal()
-		debugger;
 		this.props.createUser({
 			  firstName: this.state.firstName,
 				lastName: this.state.lastName,
@@ -124,11 +122,19 @@ class Dashboard extends Component {
 						<Menu.Item>
 							<Icon name="child" />Kids
 							<Menu.Menu>
-								<Menu.Item><Button>hi</Button></Menu.Item>
-								<Menu.Item>sub2</Menu.Item>
+								<Segment.Group thin>
+								<Segment inverted color='orange'>
+									<a>hi</a>
+								</Segment>
+								<Segment inverted color='purple'>
+									<a>you</a>
+								</Segment>
+									
+
+								</Segment.Group>
 							</Menu.Menu>
 						</Menu.Item>
-						<Menu.Item>
+						<Menu.Item onClick={this.addChild}>
 							<Icon name="user plus" />Add A Child
 						</Menu.Item>
 					</Sidebar>
