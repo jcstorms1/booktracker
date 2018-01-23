@@ -11,6 +11,7 @@ export default function authReducer(state = {currentUser: {}}, action){
                     firstName: user.first_name,
                     lastName: user.last_name,
                     accountType: user.account_type,
+                    books: user.books,
                     children: user.children
                 }}
             )

@@ -10,6 +10,11 @@ class Api::V1::AuthController < ApplicationController
                     user: UserSerializer.new(user),
                     token: token
                 }
+            elsif user.child?
+                render json: {
+                    user: UserChildSerializer.new(user),
+                    token: token
+                }
             end
         else
             render json: {error: "Account not found!"}, status: 401
@@ -18,10 +23,12 @@ class Api::V1::AuthController < ApplicationController
 
 
     def show
-        if current_user
+        if current_user && current_user.parent?
             render json: {
                 user: UserSerializer.new(current_user)
                 }
+        elsif current_user && current_user.child?
+            render json: { user: UserChildSerializer.new(current_user)}
         else
             render json: {error: "Invalid token!"}, status: 401
         end

@@ -1,28 +1,28 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Form, Button, Header, Menu, Icon, 
-					Segment, Sidebar} from 'semantic-ui-react';
+import { Button, Menu, Icon, Segment, Sidebar, Image } from 'semantic-ui-react';
+import IsbnSearch from '../components/isbnSearch';
 import BookList from '../components/bookList';
 import NoBook from '../components/noBook';
 import HomeList from '../components/homeList';
 import AddChildModal from '../components/addChildModal';
 import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
-import { onChildClick } from '../actions/onChange';
+import { onChildClick, onDeleteBook } from '../actions/onChange';
 import { createUser } from '../actions/'
 import { updateFavorites } from '../services/onChange';
-
+import logo from '../../src/lolei2.svg';
 
 class Dashboard extends Component {
-
+	
 	state = {
 		search: '',
-		modal: false,
 		firstName: '',
 		lastName: '',
 		username: '',
 		password: '',
+		modal: false,
 		menuVisible: false,
 		activeMenuItem: 'home'
 	}
@@ -38,8 +38,6 @@ class Dashboard extends Component {
 	}
 	
 	onPickChild = (e, { name }) => {
-		console.log(name)
-		e.preventDefault()
 		this.props.onChildClick(name)
 	}
 
@@ -78,12 +76,20 @@ class Dashboard extends Component {
 	}
 
 	handleActive = (e, { name }) => {
+		if (name === 'home') {
+			this.onPickChild(null, {name})
+		}
 		this.setState({ activeMenuItem: name })
 		this.toggleMenuVisible()
 	}
 
-	render() {
+	onRemoveBook = (e, { name }) => {
+		console.log(name)
+		debugger;
+		onDeleteBook(name)
+	}
 
+	render() {
 		const children = this.props.children.map((child, index) => {
 			return (
 				<Menu.Menu key={index}>
@@ -93,7 +99,7 @@ class Dashboard extends Component {
 				</Menu.Menu>
 			)
 		})
-
+		console.log(onDeleteBook)
 		return (
 
 			<div>
@@ -108,17 +114,19 @@ class Dashboard extends Component {
 					username={this.state.username}
 					password={this.state.password}
 				/>
-				<Menu fixed="top">
-					<Menu.Item id='my-menu-header' as='h3' header>
-						LoLei
+				<Menu color={"orange"} fixed="top">
+					<Menu.Item  id='my-menu-header' as='h3' header>
+						<Image src={logo}/>
 					</Menu.Item>
+					{this.props.accountType === 'Parent' ? 
 					<Menu.Item onClick={this.toggleMenuVisible} >
 						<Icon name="sidebar" />Menu
-					</Menu.Item>         
+					</Menu.Item>  : null }        
 					<Menu.Item position='right'>
 						<Button color='grey' onClick={ this.props.onLogout }>Log Out</Button>
 					</Menu.Item> 
 				</Menu>
+				{this.props.accountType === 'Parent' ? 
 				<Sidebar.Pushable as={Segment} attached="bottom">
 					<Sidebar 
 						width='thin' 
@@ -144,25 +152,9 @@ class Dashboard extends Component {
 							<Icon name="user plus" />Add A Child
 						</Menu.Item>
 					</Sidebar>
-					<Sidebar.Pusher dimmed={this.state.menuVisible}>
-            			<Segment basic style={{backgroundColor: 'lightblue'}}>
+					<Sidebar.Pusher dimmed={this.state.menuVisible} style={{backgroundColor: 'lightblue'}}>
+            			{/* <Segment basic > */}
 							<div className="center-div">
-						
-								<Form onSubmit={this.onClick}>
-									<Form.Field>
-										<Header textAlign="center">Add a new book by ISBN</Header>
-									</Form.Field>
-									<Form.Group>
-										<input
-											onChange={this.onChange} 
-											value={this.state.search} 
-											type="text" 
-											name="search"
-											placeholder="Search by a single isbn..."
-											/>
-										<Form.Button inverted color="green" content="Submit"/>
-									</Form.Group>
-								</Form>
 								<div style={{ marginTop: '50px'}}>
 								{this.props.selectedChild === 'home' 
 									?
@@ -172,18 +164,48 @@ class Dashboard extends Component {
 									:
 										this.props.children[this.props.selectedChild].books.length !== 0 
 										?
+										<div>
+										<IsbnSearch 
+											onClick={this.onClick} 
+											onChange={this.onChange}
+											search={this.state.search}
+										/>
 										<BookList 
-											onFavorite={this.onFavorite} 
+											onFavorite={this.onFavorite}
+											onRemoveBook={this.onRemoveBook} 
 											child={this.props.children[this.props.selectedChild]}
-										/> 
+											accountType={this.props.accountType}
+										/>
+										</div>
 										:
+										<div>
+										<IsbnSearch 
+											onClick={this.onClick} 
+											onChange={this.onChange}
+											search={this.state.search}
+										/>
 										<NoBook child={this.props.children[this.props.selectedChild]}/>
+										</div>
 								}
 								</div>
 							</div>
-						</Segment>
+						{/* </Segment> */}
 					</Sidebar.Pusher>
 				</Sidebar.Pushable>
+				: 
+				<div className="center-div">
+				<IsbnSearch 
+					onClick={this.onClick} 
+					onChange={this.onChange}
+					search={this.state.search}
+				/>
+				<BookList 
+					books={this.props.userBooks} 
+					onFavorite={this.onFavorite}
+					accountType={this.props.accountType}
+				/>
+				</div>}
+
 			</div>
 			
 		)
@@ -195,9 +217,17 @@ const mapStateToProps = state => ({
 	firstName: state.auth.currentUser.firstName,
 	lastName: state.auth.currentUser.lastName,
 	accountType: state.auth.currentUser.accountType,
+	userBooks: state.auth.currentUser.books || [],
 	children: state.auth.currentUser.children || [],
 	selectedChild: state.change.selectedChild,
 	addChildAccount: state.change.addChildAccount
 })
 
-export default withRouter(withAuth(connect(mapStateToProps, { getByISBN, onChildClick, createUser })(Dashboard)));
+export default withRouter(
+	withAuth(
+		connect(mapStateToProps, 
+			{ getByISBN, 
+				onChildClick, 
+				createUser,
+				onDeleteBook }
+		)(Dashboard)));

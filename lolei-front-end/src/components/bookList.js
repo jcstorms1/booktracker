@@ -3,7 +3,6 @@ import BookCard from '../components/bookCard';
 import { Card } from 'semantic-ui-react';
 
 const BookList = props => {
-	
 	let books = props.child ? props.child.books : props.books
 
 	const sortedBooks = books.sort((a, b) => {
@@ -14,6 +13,8 @@ const BookList = props => {
 				key={index} 
 				book={book} 
 				onFavorite={props.onFavorite}
+				accountType={props.accountType}
+				removeBook={props.onRemoveBook}
 			/>
 		)
 	})

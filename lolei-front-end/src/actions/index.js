@@ -7,9 +7,13 @@ export function loginUser(formData, history) {
 	return (dispatch) => {
 		login(formData)
 			.then(res =>{
-				localStorage.setItem('token', res.token)          
-				dispatch({type: 'LOGIN_USER', res})
-				history.push('/dashboard')
+				if (res.error) {
+					alert(res.error +"\n\n Please check that your username and password are correct!")
+				} else {
+					localStorage.setItem('token', res.token)          
+					dispatch({type: 'LOGIN_USER', res})
+					history.push('/dashboard')
+				}
 			})
 	}
 }

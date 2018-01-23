@@ -38,12 +38,18 @@ class BookCard extends Component {
 					content='Hey!'
 					subheader="You didn't read this!"
 				/>
-        <Button color={'grey'}>Remove</Button>
+		<Button
+			name={this.props.book.list_id}
+			onClick={this.props.removeBook} 
+			color={'grey'}
+		>Remove
+		</Button>
       </div>
 		)
 		
 		return(
 			<Card>
+				{this.props.accountType === 'Parent' ?
 				<Dimmer.Dimmable
 					as={Image}
 					dimmed={active}
@@ -53,7 +59,9 @@ class BookCard extends Component {
 					size='medium'
 					src={this.props.book.thumbnail}
 				/>
-				{/* <Image size='medium' src={this.props.book.thumbnail}/> */}
+				:
+				<Image size='medium' src={this.props.book.thumbnail}/>
+				}	
 				<Card.Content>
 					<Card.Header>
 						{this.props.book.title}

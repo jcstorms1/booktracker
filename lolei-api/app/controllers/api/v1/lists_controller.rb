@@ -6,4 +6,11 @@ class Api::V1::ListsController < ApplicationController
         list.save
     end
 
+    def destroy
+        list = List.find(params[:id])
+        list.destroy
+        render json: {user: UserSerializer.new(current_user)}
+    end
+
+
 end

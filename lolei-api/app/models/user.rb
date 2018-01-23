@@ -9,6 +9,7 @@ class User < ApplicationRecord
     
     before_validation :downcase_username
     validates :username, uniqueness: true, presence: true
+    validates :password, presence: true
     
     has_secure_password
 

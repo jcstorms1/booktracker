@@ -1,9 +1,5 @@
 class UserSerializer < ActiveModel::Serializer
-  @@arr = []
-
-  attributes :id, :first_name, :last_name, :username, :password_digest, :account_type, :children
-
- 
+  attributes :id, :first_name, :last_name, :username, :password_digest, :account_type, :books, :children
 
   def children
     object.children.map do |child|
@@ -12,7 +8,6 @@ class UserSerializer < ActiveModel::Serializer
     child.attributes.merge({books: child_books})
 
     end
-    # object.childrens_lists.map { |list| {read_at: list.created_at}.merge(list.book.attributes) }
-    # self.books.map { |book|  book.to_json.merge({read_at: book.}) }
   end
 end
+
