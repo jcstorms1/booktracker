@@ -2,7 +2,7 @@ import React from 'react';
 import BookList from './bookList';
 import NoBook  from './noBook';
 
-import { Grid, Card, Header } from 'semantic-ui-react';
+import { Header } from 'semantic-ui-react';
 
 const ParentBookList = props => {
 	const latestBooks = props.child.books.sort((a,b) => {

@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import * as moment from 'moment';
+import React from 'react';
 import BookCard from '../components/bookCard';
 import { Card } from 'semantic-ui-react';
 

@@ -4,7 +4,6 @@ import {Route, withRouter} from 'react-router-dom';
 
 import { getCurrentUser, logoutUser } from './actions';
 
-import Nav from './containers/Navbar';
 import LoginForm from './containers/LoginForm';
 import LandingPage from './components/landingPage';
 import Dashboard from './containers/Dashboard';

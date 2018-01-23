@@ -28,6 +28,8 @@ class BookCard extends Component {
 
 		const { active } = this.state
 
+		const defaultRating = this.props.book.favorite ? 1 : 0
+
 		const content = (
       <div>
 				<Header 
@@ -73,7 +75,7 @@ class BookCard extends Component {
 								clearable
 								name={this.props.book.list_id}
 								onRate={this.props.onFavorite}
-								defaultRating={this.props.book.favorite}
+								defaultRating={defaultRating}
 								icon='heart'
 							/>
 						</Header>

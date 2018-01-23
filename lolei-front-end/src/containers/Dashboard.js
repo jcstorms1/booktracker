@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Button, Header, Menu, Icon, 
-					Segment, Sidebar, Accordion} from 'semantic-ui-react';
-// import Sidebar from '../components/sidebar'
+					Segment, Sidebar} from 'semantic-ui-react';
 import BookList from '../components/bookList';
 import NoBook from '../components/noBook';
 import HomeList from '../components/homeList';
@@ -24,7 +23,8 @@ class Dashboard extends Component {
 		lastName: '',
 		username: '',
 		password: '',
-		menuVisible: false
+		menuVisible: false,
+		activeMenuItem: 'home'
 	}
 
 	onClick = e => {
@@ -37,21 +37,18 @@ class Dashboard extends Component {
 		}
 	}
 	
-	onPickChild = e => {
+	onPickChild = (e, { name }) => {
+		console.log(name)
 		e.preventDefault()
-		this.props.onChildClick(e.target.name)
+		this.props.onChildClick(name)
 	}
 
 	onChange = e => {
-		this.setState({
-			[e.target.name]: e.target.value
-		})
+		this.setState({ [e.target.name]: e.target.value })
 	}
 
-	addChild = () => {
-		this.setState({
-			modal: true
-		})
+	addChild = () => { 
+		this.setState({ modal: true })
 	}
 	
 	addChildSubmit = (e) => {
@@ -73,18 +70,30 @@ class Dashboard extends Component {
 	}
 
 	closeModal = () => {
-		this.setState({
-			modal: false
-		})
+		this.setState({ modal: false })
 	}
 
 	toggleMenuVisible = () => {
-		this.setState({
-			menuVisible: !this.state.menuVisible
-		})
+		this.setState({ menuVisible: !this.state.menuVisible})
+	}
+
+	handleActive = (e, { name }) => {
+		this.setState({ activeMenuItem: name })
+		this.toggleMenuVisible()
 	}
 
 	render() {
+
+		const children = this.props.children.map((child, index) => {
+			return (
+				<Menu.Menu key={index}>
+					<Menu.Item name={index} onClick={this.onPickChild}> 
+							{child.first_name}
+					</Menu.Item>
+				</Menu.Menu>
+			)
+		})
+
 		return (
 
 			<div>
@@ -99,10 +108,6 @@ class Dashboard extends Component {
 					username={this.state.username}
 					password={this.state.password}
 				/>
-				{/* <Sidebar 
-					onPickChild={this.onPickChild} 
-					children={this.props.children}
-				addChild={this.addChild}*/} 
 				<Menu fixed="top">
 					<Menu.Item id='my-menu-header' as='h3' header>
 						LoLei
@@ -115,31 +120,32 @@ class Dashboard extends Component {
 					</Menu.Item> 
 				</Menu>
 				<Sidebar.Pushable as={Segment} attached="bottom">
-					<Sidebar width='thin' as={Menu} animation="uncover" style={{top: '5vh'}}visible={this.state.menuVisible} icon="labeled" vertical inline inverted>
-						<Menu.Item name='home' active='home'>
-							<Icon name="home" />Home
+					<Sidebar 
+						width='thin' 
+						as={Menu} 
+						animation="uncover" 
+						style={{top: '5vh'}}
+						visible={this.state.menuVisible} 
+						icon="labeled" 
+						vertical 
+						inline='true' 
+						inverted
+					>
+						<Menu.Item name='home' active={this.state.activeMenuItem === 'home'} onClick={this.handleActive} >
+							<Icon  name="home" />Home
 						</Menu.Item>
-						<Menu.Item>
-							<Icon name="child" />Kids
-							<Menu.Menu>
-								<Segment.Group thin>
-								<Segment inverted color='orange'>
-									<a>hi</a>
-								</Segment>
-								<Segment inverted color='purple'>
-									<a>you</a>
-								</Segment>
-									
-
-								</Segment.Group>
-							</Menu.Menu>
+						<Menu.Item name='kids' active={this.state.activeMenuItem === 'kids'} onClick={this.handleActive}>
+							<Icon name="child" />
+							<Menu.Header>Kids</Menu.Header>
+							
+								{children}
 						</Menu.Item>
 						<Menu.Item onClick={this.addChild}>
 							<Icon name="user plus" />Add A Child
 						</Menu.Item>
 					</Sidebar>
 					<Sidebar.Pusher dimmed={this.state.menuVisible}>
-            <Segment basic style={{backgroundColor: 'lightblue'}}>
+            			<Segment basic style={{backgroundColor: 'lightblue'}}>
 							<div className="center-div">
 						
 								<Form onSubmit={this.onClick}>
