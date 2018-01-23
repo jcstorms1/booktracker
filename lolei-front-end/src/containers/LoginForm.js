@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { loginUser } from '../actions';
 import { Button, Form, Grid, Header,Segment, Icon } from 'semantic-ui-react'
-import '../styling/loginForm.css';
+import '../styling/form.css';
 
 class LoginForm extends Component {
 
@@ -29,7 +29,7 @@ class LoginForm extends Component {
 				<Grid id='login' textAlign='center' style={{ height: '100%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 450 }}>
 						<Header id='login-header' as='h2'  textAlign='center'>
-						<Icon name='book'/>{' '}Log-in to your account
+						<Icon name='book'/>{' '}Log-in To Your Account
 						</Header>
 						<Form size='large'>
 							<Segment stacked>

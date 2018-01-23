@@ -1,0 +1,11 @@
+body {
+    background-color: #add8e6;
+}
+
+.login-form, .signup-form {
+    margin-top: 30vh;
+}
+
+#login-header, #signup-header {
+    color: #f2711c;
+}
