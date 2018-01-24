@@ -6,7 +6,12 @@ import BookCard from '../components/bookCard';
 
 
 const BookList = props => {
-	let books = props.child ? props.child.books : props.books
+	
+	let childbooks = props.child ? props.child.books : props.books
+	
+	let books = props.selectedFilter ==='Favorites' ? 
+		childbooks.filter(book => book.favorite === true) : childbooks
+	
 	const sortedBooks = books.sort((a, b) => {
 		return Date.parse(b.read_at) - Date.parse(a.read_at)
 	}).map((book, index) => {

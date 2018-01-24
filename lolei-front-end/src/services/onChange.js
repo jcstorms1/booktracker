@@ -14,7 +14,7 @@ export const updateFavorites = (list_id, rating) => {
             method: 'PATCH',
             headers: headers,
             body: JSON.stringify({favorite: rating})
-        })
+        }).then(res => res.json())
     )
 }
 

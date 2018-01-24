@@ -29,22 +29,22 @@ class BookCard extends Component {
 		const { active } = this.state
 
 		const defaultRating = this.props.book.favorite ? 1 : 0
-
+		console.log(defaultRating)
 		const content = (
-      <div>
+			<div>
 				<Header 
 					inverted
 					as='h2' 
 					content='Hey!'
 					subheader="You didn't read this!"
 				/>
-		<Button
-			name={this.props.book.list_id}
-			onClick={this.props.removeBook} 
-			color={'grey'}
-		>Remove
-		</Button>
-      </div>
+				<Button
+					name={this.props.book.list_id}
+					onClick={this.props.removeBook} 
+					color={'grey'}
+				>Remove
+				</Button>
+			</div>
 		)
 		
 		return(
@@ -83,7 +83,7 @@ class BookCard extends Component {
 								clearable
 								name={this.props.book.list_id}
 								onRate={this.props.onFavorite}
-								defaultRating={defaultRating}
+								rating={defaultRating}
 								icon='heart'
 							/>
 						</Header>

@@ -1,9 +1,19 @@
-import { removeBook } from '../services/onChange';
+import { removeBook, updateFavorites } from '../services/onChange';
 
 export function onChildClick (child) {
 	return (dispatch) => {
 		dispatch({type: 'ON_CHILD_CLICK', child})
 	}
+}
+
+export function setFavorite(list_id, rating) {
+	return(dispatch) => {
+		updateFavorites(list_id, rating)
+		.then( res => {
+			dispatch({type: "SET_USER", res})
+		})
+	}
+
 }
 
 export function onDeleteBook(list_id) {

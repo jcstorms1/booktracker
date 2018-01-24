@@ -12,7 +12,7 @@ import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
 import { onChildClick, onDeleteBook } from '../actions/onChange';
 import { createUser } from '../actions/'
-import { updateFavorites } from '../services/onChange';
+import { setFavorite } from '../actions/onChange';
 import logo from '../../src/lolei2.svg';
 import '../styling/menu.css';
 import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
@@ -69,7 +69,7 @@ class Dashboard extends Component {
 	}
 
 	onFavorite = (e, {name, rating}) => {
-		updateFavorites(name, !!rating)
+		this.props.setFavorite(name, !!rating)
 	}
 
 	closeModal = () => {
@@ -232,5 +232,7 @@ export default withRouter(
 			{ getByISBN, 
 				onChildClick, 
 				createUser,
-				onDeleteBook }
+				onDeleteBook,
+				setFavorite
+			}
 		)(Dashboard)));
