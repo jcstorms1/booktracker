@@ -10,7 +10,7 @@ const NoBook = props => {
 			{props.child.first_name} has not added any books yet!			
 		</Header.Subheader>
 		<Header.Subheader>
-			Add some books by entering an ISBN in the search bar above.			
+			Add some books by entering an ISBN in the search bar on the child's page.			
 		</Header.Subheader>
 	</Header>
 	)

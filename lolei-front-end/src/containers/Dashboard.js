@@ -13,6 +13,7 @@ import { onChildClick, onDeleteBook } from '../actions/onChange';
 import { createUser } from '../actions/'
 import { updateFavorites } from '../services/onChange';
 import logo from '../../src/lolei2.svg';
+import '../styling/menu.css';
 
 class Dashboard extends Component {
 	
@@ -84,9 +85,7 @@ class Dashboard extends Component {
 	}
 
 	onRemoveBook = (e, { name }) => {
-		console.log(name)
-		debugger;
-		onDeleteBook(name)
+		this.props.onDeleteBook(name)
 	}
 
 	render() {
@@ -114,16 +113,16 @@ class Dashboard extends Component {
 					username={this.state.username}
 					password={this.state.password}
 				/>
-				<Menu color={"orange"} fixed="top">
-					<Menu.Item  id='my-menu-header' as='h3' header>
+				<Menu id='menu-bar' fixed="top">
+					<Menu.Item id='menu-logo' as='h3' header>
 						<Image src={logo}/>
 					</Menu.Item>
 					{this.props.accountType === 'Parent' ? 
-					<Menu.Item onClick={this.toggleMenuVisible} >
+					<Menu.Item id='menu-menu' onClick={this.toggleMenuVisible} >
 						<Icon name="sidebar" />Menu
 					</Menu.Item>  : null }        
-					<Menu.Item position='right'>
-						<Button color='grey' onClick={ this.props.onLogout }>Log Out</Button>
+					<Menu.Item id='right-menu' position='right'>
+						<Button id='logout-btn' onClick={ this.props.onLogout }>Log Out</Button>
 					</Menu.Item> 
 				</Menu>
 				{this.props.accountType === 'Parent' ? 
@@ -139,16 +138,15 @@ class Dashboard extends Component {
 						inline='true' 
 						inverted
 					>
-						<Menu.Item name='home' active={this.state.activeMenuItem === 'home'} onClick={this.handleActive} >
-							<Icon  name="home" />Home
+						<Menu.Item  id='menu-home' name='home' active={this.state.activeMenuItem === 'home'} onClick={this.handleActive} >
+							<Icon   name="home" />Home
 						</Menu.Item>
-						<Menu.Item name='kids' active={this.state.activeMenuItem === 'kids'} onClick={this.handleActive}>
+						<Menu.Item id='menu-kids' name='kids' active={this.state.activeMenuItem === 'kids'} onClick={this.handleActive}>
 							<Icon name="child" />
 							<Menu.Header>Kids</Menu.Header>
-							
 								{children}
 						</Menu.Item>
-						<Menu.Item onClick={this.addChild}>
+						<Menu.Item id='menu-add-child' onClick={this.addChild}>
 							<Icon name="user plus" />Add A Child
 						</Menu.Item>
 					</Sidebar>

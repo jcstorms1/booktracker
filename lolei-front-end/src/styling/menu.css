@@ -1,0 +1,32 @@
+#menu-bar {
+    background-color: #bed88d;
+}
+
+#menu-logo {
+    background-color: #f2711c;
+}
+
+#menu-menu {
+    background-color: #6c698d;
+    color: black;
+}
+#right-menu {
+    background-color: #d34f4f;
+}
+
+#logout-btn {
+    background-color: #6c698d;
+    color: #ffffff;
+}
+
+#menu-home {
+    color: #bed88d;
+}
+
+#menu-kids {
+    color: #bed88d;
+}
+
+#menu-add-child {
+    color: #bed88d;
+}

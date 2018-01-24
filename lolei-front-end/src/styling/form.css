@@ -9,3 +9,11 @@ body {
 #login-header, #signup-header {
     color: #f2711c;
 }
+
+#isbn-header {
+    font-family: 'Schoolbell';
+}
+#isbn-button {
+    background-color: #006e90;
+    color: white;
+}

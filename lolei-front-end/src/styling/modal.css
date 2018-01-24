@@ -1,3 +1,26 @@
 .modal {
     height: 46vh;
 }
+
+#modal-header {
+    background-color: #bed88d;
+    font-family: 'Schoolbell';
+}
+
+#modal-body {
+    background-color: #add8e6;
+}
+
+#modal-footer {
+    background-color: #add8e6;
+}
+
+#modal-cancel {
+    background-color: #d34f4f;
+    color: white;
+}
+
+#modal-submit {
+    background-color: #006e90;
+    color: white;
+}

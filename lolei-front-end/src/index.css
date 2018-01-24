@@ -10,10 +10,17 @@ body {
   width: 50vw;
 }
 
-.parent-header {
-  top: 5vh;
-}
-
 .sidebar-menu {
   top: 50vh;
 }
+
+
+.parent-home-view {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+/* font-family: 'Caveat Brush', cursive;
+font-family: 'Chewy', cursive;
+font-family: 'Ranchers', cursive;
+font-family: 'Schoolbell', cursive; */

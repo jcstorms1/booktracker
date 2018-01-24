@@ -11,8 +11,9 @@ const ParentBookList = props => {
 		<div>
 			{ latestBooks.length !== 0 ?
 				<div>
-					<Header 
-						className='parent-header' 
+					<Header
+						as='h1'
+						style={{fontFamily: 'Schoolbell', marginBottom: '2.5vh'}}
 						textAlign='center'>
 						{props.child.first_name}'s recently read books 
 					</Header>
@@ -23,8 +24,9 @@ const ParentBookList = props => {
 				</div>
 				:
 				<div>
-				<Header 
-					className='parent-header'
+				<Header
+					as='h1'
+					style={{fontFamily: 'Schoolbell', marginBottom: '2.5vh'}}
 					textAlign='center'>
 					{props.child.first_name}'s recently read books 
 				</Header>

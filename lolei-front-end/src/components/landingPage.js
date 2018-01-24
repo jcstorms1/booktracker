@@ -1,17 +1,14 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-
-import { ButtonToolbar, Button } from 'react-bootstrap';
-
+import { Image ,Button, Header } from 'semantic-ui-react';
+import logo from '../../src/lolei2Large.svg'
 const LandingPage = props => {
 	return (
 		<div className="center-div">
+			<Image fluid src={logo}/>
 			<h1>I'm a landing page</h1>
-			<ButtonToolbar>
-				<Button bsStyle="primary" onClick={props.logInButton}>Login</Button>
-
-				<Button bsStyle="success" onClick={props.signUpButton}>Sign Up</Button>
-			</ButtonToolbar>
+				<Button  onClick={props.logInButton}>Login</Button>
+				<Button  onClick={props.signUpButton}>Sign Up</Button>
 		</div>
 	)
 }

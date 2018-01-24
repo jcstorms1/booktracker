@@ -8,5 +8,10 @@ export function onChildClick (child) {
 
 export function onDeleteBook(list_id) {
 	return (dispatch) => {
-		console.log("HEY")}}
+		removeBook(list_id)
+		.then(res => {
+			dispatch({type: "SET_USER", res})
+		})
+	}
+}
 			

@@ -1,12 +1,15 @@
 import React from 'react';
-import { Modal, Header, Button, Form} from 'semantic-ui-react';
+import { Modal, Header, Button, Form, Icon} from 'semantic-ui-react';
 import '../styling/modal.css'
 
 const AddChildModal = props => {
 	return(
 	<Modal size="small" open={props.modal}>
-		<Header  icon="child" content="Add A Child To Your Account"/> 
-		<Modal.Content>
+		<Header as='h2' id='modal-header' textAlign='center'>
+			<Icon name='child'/>
+			Add A Child To Your Account!
+		</Header> 
+		<Modal.Content id='modal-body'>
 			<Form>
 				<Form.Field required>
 					<label>First Name:</label>
@@ -46,9 +49,9 @@ const AddChildModal = props => {
 				</Form.Field>
 			</Form>					
 		</Modal.Content>
-		<Modal.Actions>
-			<Button inverted color='red' onClick={props.closeModal}>Cancel</Button>
-			<Button inverted color='green' type='submit' onClick={props.addChildSubmit}>Save changes</Button>
+		<Modal.Actions id='modal-footer'>
+			<Button id='modal-cancel' onClick={props.closeModal}>Cancel</Button>
+			<Button id='modal-submit' type='submit' onClick={props.addChildSubmit}>Save changes</Button>
 		</Modal.Actions>
 	</Modal>
 	)
