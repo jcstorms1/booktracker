@@ -16,10 +16,38 @@ body {
 
 
 .parent-home-view {
-  margin-top: 5vh;
   margin-bottom: 5vh;
 }
 
+#home-list-container {
+  height: 80vh;
+  overflow: auto;
+  overflow-x: hidden;
+  padding-right: 5px;
+}
+
+
+#home-list-container::-webkit-scrollbar
+{
+	width: 0px;
+	background-color: #F5F5F5;
+}
+
+#my-card-group {
+  height: 70vh;
+  overflow: auto;
+  margin-top: 2.5vh;
+}
+
+#my-card-group::-webkit-scrollbar
+{
+	width: 0px;
+	background-color: #F5F5F5;
+}
+
+#root {
+  overflow: hidden
+}
 /* font-family: 'Caveat Brush', cursive;
 font-family: 'Chewy', cursive;
 font-family: 'Ranchers', cursive;

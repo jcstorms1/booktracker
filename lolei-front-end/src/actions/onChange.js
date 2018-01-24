@@ -15,3 +15,8 @@ export function onDeleteBook(list_id) {
 	}
 }
 			
+export function setFilter(name) {
+	return (dispatch) => {
+		dispatch({type: 'SET_FILTER', name})
+	}
+}

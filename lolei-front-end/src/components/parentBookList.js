@@ -18,6 +18,7 @@ const ParentBookList = props => {
 						{props.child.first_name}'s recently read books 
 					</Header>
 					<BookList 
+						activeMenuItem={props.activeMenuItem}
 						onFavorite={props.onFavorite}
 						books={latestBooks}
 					/> 

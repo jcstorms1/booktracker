@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Button, Menu, Icon, Segment, Sidebar, Image } from 'semantic-ui-react';
+import { Button, Menu, Icon, Segment, 
+	Sidebar, Image } from 'semantic-ui-react';
 import IsbnSearch from '../components/isbnSearch';
 import BookList from '../components/bookList';
 import NoBook from '../components/noBook';
@@ -14,6 +15,7 @@ import { createUser } from '../actions/'
 import { updateFavorites } from '../services/onChange';
 import logo from '../../src/lolei2.svg';
 import '../styling/menu.css';
+import Header from 'semantic-ui-react/dist/commonjs/elements/Header/Header';
 
 class Dashboard extends Component {
 	
@@ -25,10 +27,11 @@ class Dashboard extends Component {
 		password: '',
 		modal: false,
 		menuVisible: false,
-		activeMenuItem: 'home'
+		activeMenuItem: 'home',
 	}
 
 	onClick = e => {
+		this.setState({ search: '' })
 		if(this.props.selectedChild==='home') {
 			this.props.getByISBN(this.state.search, this.props.userId)
 		} else {
@@ -103,7 +106,6 @@ class Dashboard extends Component {
 		return (
 
 			<div>
-				
 				<AddChildModal 
 					onChange={this.onChange}
 					modal={this.state.modal}
@@ -121,18 +123,21 @@ class Dashboard extends Component {
 					{this.props.accountType === 'Parent' ? 
 					<Menu.Item id='menu-menu' onClick={this.toggleMenuVisible} >
 						<Icon name="sidebar" />Menu
-					</Menu.Item>  : null }        
+					</Menu.Item>  : null }    
+					<Menu.Item style={{width:'100%', textAlign: 'center', position: 'absolute', pointerEvents: 'none'}}>
+						<Header as='h1' style={{margin: 'auto', fontFamily:'Schoolbell'}}>Welcome, {this.props.firstName}!</Header>
+					</Menu.Item>    
 					<Menu.Item id='right-menu' position='right'>
 						<Button id='logout-btn' onClick={ this.props.onLogout }>Log Out</Button>
 					</Menu.Item> 
 				</Menu>
 				{this.props.accountType === 'Parent' ? 
-				<Sidebar.Pushable as={Segment} attached="bottom">
-					<Sidebar 
+				<Sidebar.Pushable style={{height: window.innerHeight, backgroundColor: '#add8e6', overflow: 'hidden'}}as={Segment} attached="bottom">
+					<Sidebar
+						id='menu-sidebar'
 						width='thin' 
 						as={Menu} 
 						animation="uncover" 
-						style={{top: '5vh'}}
 						visible={this.state.menuVisible} 
 						icon="labeled" 
 						vertical 
@@ -151,13 +156,13 @@ class Dashboard extends Component {
 							<Icon name="user plus" />Add A Child
 						</Menu.Item>
 					</Sidebar>
-					<Sidebar.Pusher dimmed={this.state.menuVisible} style={{backgroundColor: 'lightblue'}}>
-            			{/* <Segment basic > */}
+					<Sidebar.Pusher dimmed={this.state.menuVisible} style={{backgroundColor: '#add8e6'}}>
 							<div className="center-div">
 								<div style={{ marginTop: '50px'}}>
 								{this.props.selectedChild === 'home' 
 									?
 									<HomeList 
+									activeMenuItem={this.state.activeMenuItem}
 									onFavorite={this.onFavorite}
 									children={this.props.children}/> 
 									:
@@ -170,6 +175,7 @@ class Dashboard extends Component {
 											search={this.state.search}
 										/>
 										<BookList 
+											activeMenuItem={this.state.activeMenuItem}
 											onFavorite={this.onFavorite}
 											onRemoveBook={this.onRemoveBook} 
 											child={this.props.children[this.props.selectedChild]}
@@ -188,7 +194,6 @@ class Dashboard extends Component {
 								}
 								</div>
 							</div>
-						{/* </Segment> */}
 					</Sidebar.Pusher>
 				</Sidebar.Pushable>
 				: 
@@ -203,10 +208,9 @@ class Dashboard extends Component {
 					onFavorite={this.onFavorite}
 					accountType={this.props.accountType}
 				/>
-				</div>}
-
-			</div>
-			
+				</div>
+			}
+			</div>	
 		)
 	}
 }

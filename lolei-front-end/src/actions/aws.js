@@ -7,7 +7,7 @@ export default function getByISBN(isbn, userId) {
       if (res.error) {
         alert('Oops! This book is already in your list.')
       } else {
-        dispatch({type: "GET_ISBN", res})
+        dispatch({type: "SET_USER", res})
       }
     })
   }

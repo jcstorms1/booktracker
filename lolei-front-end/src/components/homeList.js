@@ -8,13 +8,14 @@ const HomeList = props => {
 			<ParentBookList
 				child={child}
 				onFavorite={props.onFavorite}
+				activeMenuItem={props.activeMenuItem}
 			/>
 			</div>
 		)
 	})
 
 	return (
-		<div>
+		<div id='home-list-container'>
 			{childBooks}
 		</div>
 
