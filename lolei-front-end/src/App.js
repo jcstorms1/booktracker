@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import {Route, withRouter} from 'react-router-dom';
 
 import { getCurrentUser, logoutUser } from './actions';
+import { onChildClick } from './actions/onChange';
 
 import LoginForm from './containers/LoginForm';
 import LandingPage from './components/landingPage';
@@ -13,6 +14,7 @@ class App extends Component {
 
   onLogout = () => {
     this.props.logoutUser(this.props.history)
+    this.props.onChildClick('home')
   }
   
   logInButton = () => {
@@ -60,7 +62,11 @@ class App extends Component {
 }
 const mapStateToProps = state => ({
   loggedIn: !!state.auth.currentUser.id,
+  selectedChild: state.change.selectedChild,
   ...state
 })
 
-export default withRouter(connect(mapStateToProps, { logoutUser, getCurrentUser })(App));
+export default withRouter(
+  connect(mapStateToProps, 
+    { logoutUser, getCurrentUser, onChildClick }
+  )(App));

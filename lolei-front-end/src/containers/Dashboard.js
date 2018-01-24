@@ -39,7 +39,8 @@ class Dashboard extends Component {
 	}
 	
 	onPickChild = (e, { name }) => {
-		this.props.onChildClick(name)
+		const parsedName = isNaN(parseInt(name, 10)) ? 'home' : parseInt(name, 10)
+		this.props.onChildClick(parsedName)
 	}
 
 	onChange = e => {
@@ -87,18 +88,18 @@ class Dashboard extends Component {
 	onRemoveBook = (e, { name }) => {
 		this.props.onDeleteBook(name)
 	}
-
+	
 	render() {
 		const children = this.props.children.map((child, index) => {
 			return (
-				<Menu.Menu key={index}>
-					<Menu.Item name={index} onClick={this.onPickChild}> 
+				<Menu.Menu  key={index}>
+					<Menu.Item 
+						as='p' className='kid-submenu' name={index.toString()} onClick={this.onPickChild}> 
 							{child.first_name}
 					</Menu.Item>
 				</Menu.Menu>
 			)
 		})
-		console.log(onDeleteBook)
 		return (
 
 			<div>

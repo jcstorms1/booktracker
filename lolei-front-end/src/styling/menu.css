@@ -30,3 +30,7 @@
 #menu-add-child {
     color: #bed88d;
 }
+
+.kid-submenu:hover {
+    color: white !important;
+}

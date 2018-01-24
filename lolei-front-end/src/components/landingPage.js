@@ -6,7 +6,7 @@ const LandingPage = props => {
 	return (
 		<div className="center-div">
 			<Image fluid src={logo}/>
-			<h1>I'm a landing page</h1>
+			<Header>I'm a landing page</Header>
 				<Button  onClick={props.logInButton}>Login</Button>
 				<Button  onClick={props.signUpButton}>Sign Up</Button>
 		</div>
