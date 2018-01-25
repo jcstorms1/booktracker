@@ -33,7 +33,7 @@ const ParentBookList = props => {
 					as='h1'
 					style={{fontFamily: 'Schoolbell', marginBottom: '2.5vh'}}
 					textAlign='center'>
-					{props.child.first_name}'s recently read books 
+					{name} recently read books 
 				</Header>
 				<NoBook child={props.child}/>
 				</div>

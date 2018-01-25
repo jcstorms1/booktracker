@@ -8,6 +8,7 @@ class User < ApplicationRecord
     # has_many :childrens_books, through: :childrens_lists, source: :books
     
     before_validation :downcase_username
+    validates :first_name, :last_name, presence: true
     validates :username, uniqueness: true, presence: true
     validates :password, presence: true
     

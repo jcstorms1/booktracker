@@ -145,7 +145,7 @@ class Dashboard extends Component {
 						inline='true' 
 						inverted
 					>
-						<Menu.Item  id='menu-home' name='home' active={this.state.activeMenuItem === 'home'} onClick={this.handleActive} >
+						<Menu.Item  id='menu-home' name='home' active={this.state.activeMenuItem === 'home'} onClick={this.handleActive}>
 							<Icon   name="home" />Home
 						</Menu.Item>
 						<Menu.Item id='menu-kids' name='kids' active={this.state.activeMenuItem === 'kids'} onClick={this.handleActive}>

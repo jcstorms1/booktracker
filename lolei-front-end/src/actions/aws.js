@@ -5,7 +5,7 @@ export default function getByISBN(isbn, userId) {
     fetchISBN(isbn, userId)
     .then(res => {
       if (res.error) {
-        alert('Oops! This book is already in your list.')
+        alert("Oops! Something went wrong.\nTry re-entering the ISBN. If you still get errors, this book is most likely in your list.")
       } else {
         dispatch({type: "SET_USER", res})
       }

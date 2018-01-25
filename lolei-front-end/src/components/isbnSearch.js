@@ -23,7 +23,7 @@ const IsbnSearch = props => {
 				/>
 				<Form.Button id='isbn-button' content="Submit"/>
 				<Button onClick={()=> props.setFilter('All')} id='filter-all-btn' name='All' attached='left'>All</Button>
-				<Button onClick={()=> props.setFilter('Favorites')} id='filter-fav-btn' attached='right'>Favorites</Button>
+				<Button toggle onClick={()=> props.setFilter('Favorites')} id='filter-fav-btn' attached='right'>Favorites</Button>
 			</Form.Group>
 		</Form>
 	)

@@ -4,11 +4,13 @@
 
 #menu-logo {
     background-color: #f2711c;
+    z-index: 1;
 }
 
 #menu-menu {
     background-color: #6c698d;
     color: black;
+    z-index: 1;
 }
 #right-menu {
     background-color: #d34f4f;

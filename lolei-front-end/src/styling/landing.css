@@ -1,3 +1,9 @@
+#landing-buttons {
+    padding-top: 5vh;
+    padding-left: 10vw;
+    padding-right: 10vw;
+}
+
 #login-btn {
     background-color: #f2711c;
 }

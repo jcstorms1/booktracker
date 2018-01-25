@@ -7,13 +7,13 @@ body {
 }
 
 .form-logo {
-    bottom: 12vh;
+    bottom: 6vh;
     margin-left: auto;
     margin-right: auto;
 }
 
 #signup-logo {
-    bottom: 12vh;
+    bottom: 8vh;
     margin-left: auto;
     margin-right: auto;
 }
@@ -28,4 +28,28 @@ body {
 #isbn-button {
     background-color: #006e90;
     color: white;
+}
+
+#filter-all-btn {
+    background-color: #f2711c;
+}
+
+#filter-all-btn:active {
+    -webkit-transform:scale(.95); /* Safari and Chrome */
+    -moz-transform:scale(.95); /* Firefox */
+    -ms-transform:scale(.95); /* IE 9 */
+    -o-transform:scale(.95); /* Opera */
+     transform:scale(.95);
+}
+
+#filter-fav-btn {
+    background-color: #6c698d;
+}
+
+#filter-fav-btn:active {
+    -webkit-transform:scale(.95); /* Safari and Chrome */
+    -moz-transform:scale(.95); /* Firefox */
+    -ms-transform:scale(.95); /* IE 9 */
+    -o-transform:scale(.95); /* Opera */
+     transform:scale(.95);
 }

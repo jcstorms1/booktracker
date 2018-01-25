@@ -6,12 +6,12 @@ const NoBook = props => {
 	<Header color='grey' textAlign='center' as='h2' icon>
     	<Icon name='book' />
     		Oh no!
-		<Header.Subheader>
+		<Header as='h3' style={{fontFamily: 'Schoolbell', paddingTop: '1vh'}}>
 			{props.child.first_name} has not added any books yet!			
-		</Header.Subheader>
-		<Header.Subheader>
+		</Header>
+		<Header as='h3' style={{fontFamily: 'Schoolbell'}}>
 			Add some books by entering an ISBN in the search bar on the child's page.			
-		</Header.Subheader>
+		</Header>
 	</Header>
 	)
 }
