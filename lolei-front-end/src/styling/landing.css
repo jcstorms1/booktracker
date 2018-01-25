@@ -5,3 +5,8 @@
 #signup-btn {
     background-color: #6c698d;
 }
+
+#or-btn::before {
+    background-color: #bed88d ;
+    color: black ;
+}

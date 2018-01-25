@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { loginUser } from '../actions';
-import { Button, Form, Grid, Header,Segment, Icon } from 'semantic-ui-react'
+import { Button, Form, Grid, Header,Segment, Icon, Image } from 'semantic-ui-react'
+import logo  from '../../src/lolei2Medium.svg';
 import '../styling/form.css';
-
 class LoginForm extends Component {
 
 	state = {
@@ -26,6 +26,9 @@ class LoginForm extends Component {
 	render() {
 		return(
 			<div className='login-form'>
+				<div className='login-logo-container'>
+					<Image className='form-logo' src={logo}/>
+				</div>
 				<Grid id='login' textAlign='center' style={{ height: '100%'}} verticalAlign='middle'>
 					<Grid.Column style={{ maxWidth: 450 }}>
 						<Header id='login-header' as='h2'  textAlign='center'>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Form, Grid, Header,Segment, Icon } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Icon, Image } from 'semantic-ui-react'
 import { createUser } from '../actions'
+import logo from '../../src/lolei2Medium.svg';
 import '../styling/form.css'
 
 class Signup extends Component {
@@ -28,6 +29,9 @@ class Signup extends Component {
 	render() {
 		return (
 			<div className='signup-form'>
+				<div className='signup-logo-container'>
+					<Image className='form-logo' src={logo}/>
+				</div>
 				<Grid id='signup' textAlign='center' style={{height: '100%'}} verticalAlign='middle'>
 					<Grid.Column style={{maxWidth: 450}}>
 						<Header id='signup-header' as='h2'  textAlign='center'>

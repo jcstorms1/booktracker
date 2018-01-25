@@ -29,7 +29,6 @@ class BookCard extends Component {
 		const { active } = this.state
 
 		const defaultRating = this.props.book.favorite ? 1 : 0
-		console.log(defaultRating)
 		const content = (
 			<div>
 				<Header 

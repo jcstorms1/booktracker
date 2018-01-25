@@ -4,11 +4,14 @@ import { Form, Header, Button } from 'semantic-ui-react';
 import { setFilter } from '../actions/onChange'
 import '../styling/form.css'
 const IsbnSearch = props => {
+	const childsName = props.children[props.selectedChild].first_name 
+	const name = childsName.slice(-1) !== 's' ? childsName + "'s" : childsName + "'"
 	return (
 
 		<Form onSubmit={props.onClick}>
 			<Form.Field>
-				<Header id='isbn-header' as='h2' textAlign="center">Add a new book by ISBN</Header>
+				<Header id='isbn-header' as='h2' textAlign="center">
+					Add a new book by ISBN to {name} list</Header>
 			</Form.Field>
 			<Form.Group>
 				<input
@@ -26,4 +29,9 @@ const IsbnSearch = props => {
 	)
 }
 
-export default connect(null, { setFilter })(IsbnSearch);
+const mapStateToProps = state => ({
+	children: state.auth.currentUser.children || [],
+	selectedChild: state.change.selectedChild
+})
+
+export default connect(mapStateToProps, { setFilter })(IsbnSearch);

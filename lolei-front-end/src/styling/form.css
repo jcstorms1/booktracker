@@ -3,7 +3,19 @@ body {
 }
 
 .login-form, .signup-form {
-    margin-top: 30vh;
+    margin-top: 20vh;
+}
+
+.form-logo {
+    bottom: 12vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#signup-logo {
+    bottom: 12vh;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #login-header, #signup-header {

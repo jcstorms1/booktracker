@@ -10,7 +10,7 @@ import HomeList from '../components/homeList';
 import AddChildModal from '../components/addChildModal';
 import  withAuth  from '../hocs/withAuth'
 import getByISBN from '../actions/aws'
-import { onChildClick, onDeleteBook } from '../actions/onChange';
+import { onChildClick, onDeleteBook, setFilter } from '../actions/onChange';
 import { createUser } from '../actions/'
 import { setFavorite } from '../actions/onChange';
 import logo from '../../src/lolei2.svg';
@@ -44,6 +44,7 @@ class Dashboard extends Component {
 	onPickChild = (e, { name }) => {
 		const parsedName = isNaN(parseInt(name, 10)) ? 'home' : parseInt(name, 10)
 		this.props.onChildClick(parsedName)
+		this.props.setFilter('All')
 	}
 
 	onChange = e => {
@@ -233,6 +234,7 @@ export default withRouter(
 				onChildClick, 
 				createUser,
 				onDeleteBook,
-				setFavorite
+				setFavorite,
+				setFilter
 			}
 		)(Dashboard)));
