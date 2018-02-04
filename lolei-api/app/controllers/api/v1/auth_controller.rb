@@ -5,7 +5,7 @@ class Api::V1::AuthController < ApplicationController
         user = User.find_by(username: params[:username])
         if user && user.authenticate(params[:password])
             token = issue_token({user_id: user.id})
-            if user.parent? && user.children != []
+            if user.parent? #&& user.children != []
                 render json: {
                     user: UserSerializer.new(user),
                     token: token

@@ -32,6 +32,7 @@ body {
 
 #filter-all-btn {
     background-color: #f2711c;
+    color: white;
 }
 
 #filter-all-btn:active {
@@ -44,6 +45,7 @@ body {
 
 #filter-fav-btn {
     background-color: #6c698d;
+    color: white;
 }
 
 #filter-fav-btn:active {

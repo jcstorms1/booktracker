@@ -4,14 +4,19 @@ import { Form, Header, Button } from 'semantic-ui-react';
 import { setFilter } from '../actions/onChange'
 import '../styling/form.css'
 const IsbnSearch = props => {
-	const childsName = props.children[props.selectedChild].first_name 
-	const name = childsName.slice(-1) !== 's' ? childsName + "'s" : childsName + "'"
+	const name = () => {
+		const childsName = props.children[props.selectedChild].first_name
+		return(
+		 childsName.slice(-1) !== 's' ? childsName + "'s" : childsName + "'"
+		)
+	}
 	return (
 
 		<Form onSubmit={props.onClick}>
 			<Form.Field>
 				<Header id='isbn-header' as='h2' textAlign="center">
-					Add a new book by ISBN to {name} list</Header>
+					{ props.children.length !== 0 ? `Add a new book by ISBN to ${name()} list` : `Add a new book by ISBN`} 
+				</Header>
 			</Form.Field>
 			<Form.Group>
 				<input

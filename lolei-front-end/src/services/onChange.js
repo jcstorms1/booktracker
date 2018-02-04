@@ -1,18 +1,22 @@
 const API_ROOT = `http://localhost:3001/api/v1`;
 
-const token = localStorage.getItem('token');
-
-const headers = {
-	'Content-Type': 'application/json',
-	'Accepts': 'application/json',
-	Authorization: token
+const getHeaders = () => {
+	const token = localStorage.getItem('token');
+	
+	return(
+	 	{
+		'Content-Type': 'application/json',
+		'Accepts': 'application/json',
+		Authorization: token
+		}
+	)
 }
 
 export const updateFavorites = (list_id, rating) => {
     return(
         fetch(`${API_ROOT}/lists/${list_id}`, {
             method: 'PATCH',
-            headers: headers,
+            headers: getHeaders(),
             body: JSON.stringify({favorite: rating})
         }).then(res => res.json())
     )
@@ -22,7 +26,7 @@ export const removeBook = (list_id) => {
     return(
         fetch(`${API_ROOT}/lists/${list_id}`, {
             method: 'DELETE',
-            headers: headers
+            headers: getHeaders()
         }).then(res => res.json())
     )   
 }

@@ -51,7 +51,7 @@ const AddChildModal = props => {
 		</Modal.Content>
 		<Modal.Actions id='modal-footer'>
 			<Button id='modal-cancel' onClick={props.closeModal}>Cancel</Button>
-			<Button id='modal-submit' type='submit' onClick={props.addChildSubmit}>Save changes</Button>
+			<Button id='modal-submit' onClick={props.addChildSubmit}>Save changes</Button>
 		</Modal.Actions>
 	</Modal>
 	)

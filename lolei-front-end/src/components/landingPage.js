@@ -7,7 +7,7 @@ import '../styling/landing.css';
 const LandingPage = props => {
 	return (
 		<div className="center-div">
-			<Grid.Column verticalAlign='middle' centered textAlign='center'>
+			<Grid.Column verticalAlign='middle' textAlign='center'>
 			<Header style={{fontFamily: 'Schoolbell'}} textAlign='center' as='h1'>Welcome To</Header>
 			<Image centered src={logo}/>
 			<Header textAlign='center' style={{fontFamily: 'Schoolbell'}} as='h3' content=

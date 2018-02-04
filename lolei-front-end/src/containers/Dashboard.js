@@ -55,18 +55,18 @@ class Dashboard extends Component {
 		this.setState({ modal: true })
 	}
 	
-	addChildSubmit = (e) => {
+	addChildSubmit = () => {
 		// DON'T FORGET TO PASS BACK ACCOUNT TYPE
-		e.preventDefault()
 		this.closeModal()
 		this.props.createUser({
-			  firstName: this.state.firstName,
-				lastName: this.state.lastName,
-				username: this.state.username,
-				password: this.state.password,
-				accountType: "Child",
-				parentId: this.props.userId
+			firstName: this.state.firstName,
+			lastName: this.state.lastName,
+			username: this.state.username,
+			password: this.state.password,
+			accountType: "Child",
+			parentId: this.props.userId
 		}, this.props.history)
+		this.toggleMenuVisible()
 	}
 
 	onFavorite = (e, {name, rating}) => {
@@ -74,7 +74,12 @@ class Dashboard extends Component {
 	}
 
 	closeModal = () => {
-		this.setState({ modal: false })
+		this.setState({ 
+			firstName: '',
+			lastName: '',
+			username: '',
+			password: '',
+			modal: false })
 	}
 
 	toggleMenuVisible = () => {
@@ -94,6 +99,7 @@ class Dashboard extends Component {
 	}
 	
 	render() {
+		console.log(this.state.modal)
 		const children = this.props.children.map((child, index) => {
 			return (
 				<Menu.Menu  key={index}>
