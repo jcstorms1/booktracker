@@ -4,13 +4,21 @@ class Api::V1::ListsController < ApplicationController
         list = List.find(params[:id])
         list.favorite = (params[:favorite])
         list.save
-        render json: {user: UserSerializer.new(current_user)}
+        if current_user.parent?
+            render json: {user: UserSerializer.new(current_user)}
+        else
+            render json: {user: UserChildSerializer.new(current_user)}
+        end
     end
 
     def destroy
         list = List.find(params[:id])
         list.destroy
-        render json: {user: UserSerializer.new(current_user)}
+        if current_user.parent?
+            render json: {user: UserSerializer.new(current_user)}
+        else
+            render json: {user: UserChildSerializer.new(current_user)}
+        end
     end
 
 

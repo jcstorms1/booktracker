@@ -19,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
         })
         
         if user.valid? && user.child?
-            render json: {user: UserSerializer.new(user.parent)}          
+            render json: {user: UserSerializer.new(current_user)}          
         elsif user.valid? && user.parent?
             payload = {user_id: user.id}
             token = issue_token(payload)

@@ -99,7 +99,6 @@ class Dashboard extends Component {
 	}
 	
 	render() {
-		console.log(this.state.modal)
 		const children = this.props.children.map((child, index) => {
 			return (
 				<Menu.Menu  key={index}>
