@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { Button, Form, Grid, Header, Segment, Icon, Image } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Segment, Icon, Image, Label ,Message} from 'semantic-ui-react'
 import { createUser } from '../actions'
 import logo from '../../src/lolei2Medium.svg';
 import '../styling/form.css'
@@ -46,8 +46,10 @@ class Signup extends Component {
 									name="firstName"
 									placeholder="First Name"
 									onChange={this.onChange}
-									value={this.state.firstName}                    
+									value={this.state.firstName}
+									error={true}                
 								/>
+								
 								<Form.Input fluid
 									icon='user circle'
 									iconPosition='left'
@@ -76,9 +78,15 @@ class Signup extends Component {
 									value={this.state.password}                                      
 								/>					
 								<Button fluid color='orange' onClick={this.onSubmit} type="submit">Submit</Button>
-								
 							</Segment>
 						</Form>
+						<Message
+							error
+							header='There was some errors with your submission'
+							list={[
+							'You must include both a upper and lower case letters in your password.',
+							'You need to select your home country.',
+							]}/>
 					</Grid.Column>
 				</Grid>
 			</div>
