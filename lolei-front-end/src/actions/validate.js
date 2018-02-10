@@ -4,9 +4,9 @@ export function setError(bool) {
   };
 }
 
-export function setFirstNameError(bool) {
+export function setFirstNameError(bool, message) {
   return dispatch => {
-    dispatch({ type: "FIRST_NAME_ERROR", bool });
+    dispatch({ type: "FIRST_NAME_ERROR", bool, message });
   };
 }
 

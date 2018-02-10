@@ -28,11 +28,8 @@ class Signup extends Component {
     username: "",
     password: "",
     accountType: "Parent",
-    error: false,
-    lastNameError: false,
     usernameError: false,
-    passwordError: false,
-    messages: []
+    passwordError: false
   };
 
   onChange = e => {
@@ -47,7 +44,7 @@ class Signup extends Component {
     let validLastName = validateLastName(this.state.lastName);
     if (validFirstName.error) {
       error = true;
-      this.props.setFirstNameError(error);
+      this.props.setFirstNameError(error, validFirstName.message);
     }
 
     if (validLastName.error) {
@@ -85,11 +82,11 @@ class Signup extends Component {
           verticalAlign="middle"
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            {this.state.error ? (
+            {this.props.error ? (
               <Message
                 error
                 header="There was some errors with your submission"
-                list={this.state.messages}
+                list={this.props.messages}
               />
             ) : (
               <Header id="signup-header" as="h2" textAlign="center">
@@ -161,7 +158,9 @@ class Signup extends Component {
 const mapStateToProps = state => ({
   error: state.validation.error,
   firstNameError: state.validation.firstNameError,
-  lastNameError: state.validation.lastNameError
+  lastNameError: state.validation.lastNameError,
+  userNameError: state.validation.userNameError,
+  messages: state.validation.messages
 });
 
 export default withRouter(
