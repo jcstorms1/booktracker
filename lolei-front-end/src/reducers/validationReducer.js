@@ -3,6 +3,7 @@ export default function validationReducer(
     error: false,
     firstNameError: false,
     lastNameError: false,
+    passwordError: false,
     messages: []
   },
   action
@@ -17,7 +18,17 @@ export default function validationReducer(
         messages: [...state.messages, action.message]
       };
     case "LAST_NAME_ERROR":
-      return { ...state, lastNameError: action.bool };
+      return {
+        ...state,
+        lastNameError: action.bool,
+        messages: [...state.messages, action.message]
+      };
+    case "PASSWORD_ERROR":
+      return {
+        ...state,
+        passwordError: action.bool,
+        messages: [...state.messages, action.message]
+      };
     default:
       return state;
   }

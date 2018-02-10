@@ -10,8 +10,14 @@ export function setFirstNameError(bool, message) {
   };
 }
 
-export function setLastNameError(bool) {
+export function setLastNameError(bool, message) {
   return dispatch => {
-    dispatch({ type: "LAST_NAME_ERROR", bool });
+    dispatch({ type: "LAST_NAME_ERROR", bool, message });
+  };
+}
+
+export function setPasswordError(bool, message) {
+  return dispatch => {
+    dispatch({ type: "PASSWORD_ERROR", bool, message });
   };
 }

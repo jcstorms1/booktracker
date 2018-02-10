@@ -2,6 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
+  validateFirstName,
+  validateLastName,
+  validatePassword
+} from "../hocs/formValidation";
+import { createUser } from "../actions";
+import {
+  setError,
+  setFirstNameError,
+  setLastNameError,
+  setPasswordError
+} from "../actions/validate";
+import {
   Button,
   Form,
   Grid,
@@ -11,15 +23,8 @@ import {
   Image,
   Message
 } from "semantic-ui-react";
-import { createUser } from "../actions";
-import {
-  setError,
-  setFirstNameError,
-  setLastNameError
-} from "../actions/validate";
 import logo from "../../src/lolei2Medium.svg";
 import "../styling/form.css";
-import { validateFirstName, validateLastName } from "../hocs/formValidation";
 
 class Signup extends Component {
   state = {
@@ -28,8 +33,7 @@ class Signup extends Component {
     username: "",
     password: "",
     accountType: "Parent",
-    usernameError: false,
-    passwordError: false
+    usernameError: false
   };
 
   onChange = e => {
@@ -42,6 +46,8 @@ class Signup extends Component {
     let error = false;
     let validFirstName = validateFirstName(this.state.firstName);
     let validLastName = validateLastName(this.state.lastName);
+    let validPassword = validatePassword(this.state.password);
+
     if (validFirstName.error) {
       error = true;
       this.props.setFirstNameError(error, validFirstName.message);
@@ -49,7 +55,12 @@ class Signup extends Component {
 
     if (validLastName.error) {
       error = true;
-      this.props.setLastNameError(error);
+      this.props.setLastNameError(error, validLastName.message);
+    }
+
+    if (validPassword.error) {
+      error = true;
+      this.props.setPasswordError(error, validPassword.message);
     }
 
     if (error) {
@@ -85,7 +96,7 @@ class Signup extends Component {
             {this.props.error ? (
               <Message
                 error
-                header="There was some errors with your submission"
+                header="Oops! There are some errors in your entries."
                 list={this.props.messages}
               />
             ) : (
@@ -123,9 +134,9 @@ class Signup extends Component {
                   fluid
                   icon="user"
                   iconPosition="left"
-                  type="text"
+                  type="email"
                   name="username"
-                  placeholder="Username"
+                  placeholder="email"
                   onChange={this.onChange}
                   value={this.state.email}
                 />
@@ -138,6 +149,7 @@ class Signup extends Component {
                   placeholder="password"
                   onChange={this.onChange}
                   value={this.state.password}
+                  error={this.props.passwordError}
                 />
                 <Button
                   fluid
@@ -160,6 +172,7 @@ const mapStateToProps = state => ({
   firstNameError: state.validation.firstNameError,
   lastNameError: state.validation.lastNameError,
   userNameError: state.validation.userNameError,
+  passwordError: state.validation.passwordError,
   messages: state.validation.messages
 });
 
@@ -168,6 +181,7 @@ export default withRouter(
     createUser,
     setError,
     setFirstNameError,
-    setLastNameError
+    setLastNameError,
+    setPasswordError
   })(Signup)
 );
