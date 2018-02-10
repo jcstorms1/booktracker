@@ -11,12 +11,14 @@ import reduxThunk from "redux-thunk";
 import authReducer from "./reducers/authReducer";
 import awsReducer from "./reducers/awsReducer";
 import onChangeReducer from "./reducers/onChangeReducer";
+import validationReducer from "./reducers/validationReducer";
 import App from "./App";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   aws: awsReducer,
-  change: onChangeReducer
+  change: onChangeReducer,
+  validation: validationReducer
 });
 
 const store = createStore(
