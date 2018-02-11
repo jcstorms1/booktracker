@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import {
   validateFirstName,
   validateLastName,
+  validateEmail,
   validatePassword
 } from "../hocs/formValidation";
 import { createUser } from "../actions";
@@ -11,7 +12,9 @@ import {
   setError,
   setFirstNameError,
   setLastNameError,
-  setPasswordError
+  setUsernameError,
+  setPasswordError,
+  clearMessages
 } from "../actions/validate";
 import {
   Button,
@@ -32,8 +35,7 @@ class Signup extends Component {
     lastName: "",
     username: "",
     password: "",
-    accountType: "Parent",
-    usernameError: false
+    accountType: "Parent"
   };
 
   onChange = e => {
@@ -46,21 +48,34 @@ class Signup extends Component {
     let error = false;
     let validFirstName = validateFirstName(this.state.firstName);
     let validLastName = validateLastName(this.state.lastName);
+    let validUsername = validateEmail(this.state.username);
     let validPassword = validatePassword(this.state.password);
-
     if (validFirstName.error) {
       error = true;
       this.props.setFirstNameError(error, validFirstName.message);
+    } else {
+      this.props.setFirstNameError(false, null);
     }
 
     if (validLastName.error) {
       error = true;
       this.props.setLastNameError(error, validLastName.message);
+    } else {
+      this.props.setLastNameError(false, null);
+    }
+
+    if (validUsername.error) {
+      error = true;
+      this.props.setUsernameError(error, validUsername.message);
+    } else {
+      this.props.setUsernameError(false, null);
     }
 
     if (validPassword.error) {
       error = true;
       this.props.setPasswordError(error, validPassword.message);
+    } else {
+      this.props.setPasswordError(false, null);
     }
 
     if (error) {
@@ -70,7 +85,8 @@ class Signup extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    this.setState({ messages: [] });
+    this.props.setError(false);
+    this.props.clearMessages();
     this.formValidation();
 
     // if (this.state.errors === false) {
@@ -136,9 +152,10 @@ class Signup extends Component {
                   iconPosition="left"
                   type="email"
                   name="username"
-                  placeholder="email"
+                  placeholder="Email"
                   onChange={this.onChange}
                   value={this.state.email}
+                  error={this.props.usernameError}
                 />
                 <Form.Input
                   fluid
@@ -146,7 +163,7 @@ class Signup extends Component {
                   iconPosition="left"
                   type="password"
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   onChange={this.onChange}
                   value={this.state.password}
                   error={this.props.passwordError}
@@ -171,7 +188,7 @@ const mapStateToProps = state => ({
   error: state.validation.error,
   firstNameError: state.validation.firstNameError,
   lastNameError: state.validation.lastNameError,
-  userNameError: state.validation.userNameError,
+  usernameError: state.validation.usernameError,
   passwordError: state.validation.passwordError,
   messages: state.validation.messages
 });
@@ -182,6 +199,8 @@ export default withRouter(
     setError,
     setFirstNameError,
     setLastNameError,
-    setPasswordError
+    setUsernameError,
+    setPasswordError,
+    clearMessages
   })(Signup)
 );

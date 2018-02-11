@@ -48,7 +48,7 @@ export function validatePassword(password) {
     return {
       error: true,
       message:
-        "Password must contain 1 upper case letter, 3 lower case letters, 1 number, and be a minimum of 8 characters."
+        "Password must contain 1 upper case letter, 3 lower case letters, 1 number, and a minimum of 8 characters long!"
     };
   } else {
     return { error: false };

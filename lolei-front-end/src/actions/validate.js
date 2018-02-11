@@ -16,8 +16,20 @@ export function setLastNameError(bool, message) {
   };
 }
 
+export function setUsernameError(bool, message) {
+  return dispatch => {
+    dispatch({ type: "USERNAME_ERROR", bool, message });
+  };
+}
+
 export function setPasswordError(bool, message) {
   return dispatch => {
     dispatch({ type: "PASSWORD_ERROR", bool, message });
+  };
+}
+
+export function clearMessages() {
+  return dispatch => {
+    dispatch({ type: "CLEAR_MESSAGES" });
   };
 }
