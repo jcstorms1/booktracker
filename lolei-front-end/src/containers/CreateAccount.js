@@ -88,10 +88,7 @@ class Signup extends Component {
     this.props.setError(false);
     this.props.clearMessages();
     this.formValidation();
-
-    setTimeout(() => {
-      this.submitUser(), 1;
-    });
+    setTimeout(this.submitUser, 1);
   };
 
   submitUser = () => {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Header, Button, Form, Icon } from "semantic-ui-react";
+import { Modal, Header, Button, Form, Icon, Message } from "semantic-ui-react";
 import "../styling/modal.css";
 
 const AddChildModal = props => {
@@ -9,6 +9,14 @@ const AddChildModal = props => {
         <Icon name="child" />
         Add A Child To Your Account!
       </Header>
+      <Message
+        error
+        header="There was some errors with your submission"
+        list={[
+          "You must include both a upper and lower case letters in your password.",
+          "You need to select your home country."
+        ]}
+      />
       <Modal.Content id="modal-body">
         <Form>
           <Form.Field required>
