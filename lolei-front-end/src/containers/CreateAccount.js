@@ -89,11 +89,15 @@ class Signup extends Component {
     this.props.clearMessages();
     this.formValidation();
 
-    // if (this.state.errors === false) {
-    //   this.props.createUser(this.state, this.props.history);
-    // } else {
-    // }
-    console.log("success");
+    setTimeout(() => {
+      this.submitUser(), 1;
+    });
+  };
+
+  submitUser = () => {
+    if (!this.props.error) {
+      this.props.createUser(this.state, this.props.history);
+    }
   };
 
   render() {
