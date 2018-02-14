@@ -8,10 +8,28 @@ import NoBook from "../components/noBook";
 import HomeList from "../components/homeList";
 import AddChildModal from "../components/addChildModal";
 import withAuth from "../hocs/withAuth";
-import getByISBN from "../actions/aws";
-import { onChildClick, onDeleteBook, setFilter } from "../actions/onChange";
+import {
+  validateFirstName,
+  validateLastName,
+  validateUsername,
+  validatePassword
+} from "../hocs/formValidation";
 import { createUser } from "../actions/";
-import { setFavorite } from "../actions/onChange";
+import getByISBN from "../actions/aws";
+import {
+  onChildClick,
+  onDeleteBook,
+  setFilter,
+  setFavorite
+} from "../actions/onChange";
+import {
+  setError,
+  setFirstNameError,
+  setLastNameError,
+  setUsernameError,
+  setPasswordError,
+  clearMessages
+} from "../actions/validate";
 import logo from "../../src/lolei2.svg";
 import "../styling/menu.css";
 import Header from "semantic-ui-react/dist/commonjs/elements/Header/Header";
@@ -26,6 +44,46 @@ class Dashboard extends Component {
     modal: false,
     menuVisible: false,
     activeMenuItem: "home"
+  };
+
+  formValidation = () => {
+    let error = false;
+    let validFirstName = validateFirstName(this.state.firstName);
+    let validLastName = validateLastName(this.state.lastName);
+    let validUsername = validateUsername(this.state.username);
+    let validPassword = validatePassword(this.state.password);
+
+    if (validFirstName.error) {
+      error = true;
+      this.props.setFirstNameError(error, validFirstName.message);
+    } else {
+      this.props.setFirstNameError(false, null);
+    }
+
+    if (validLastName.error) {
+      error = true;
+      this.props.setLastNameError(error, validLastName.message);
+    } else {
+      this.props.setLastNameError(false, null);
+    }
+
+    if (validUsername.error) {
+      error = true;
+      this.props.setUsernameError(error, validUsername.message);
+    } else {
+      this.props.setUsernameError(false, null);
+    }
+
+    if (validPassword.error) {
+      error = true;
+      this.props.setPasswordError(error, validPassword.message);
+    } else {
+      this.props.setPasswordError(false, null);
+    }
+
+    if (error) {
+      this.props.setError(true);
+    }
   };
 
   onClick = e => {
@@ -55,20 +113,27 @@ class Dashboard extends Component {
   };
 
   addChildSubmit = () => {
-    // DON'T FORGET TO PASS BACK ACCOUNT TYPE
-    this.closeModal();
-    this.props.createUser(
-      {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        username: this.state.username,
-        password: this.state.password,
-        accountType: "Child",
-        parentId: this.props.userId
-      },
-      this.props.history
-    );
-    this.toggleMenuVisible();
+    this.props.setError(false);
+    this.props.clearMessages();
+    this.formValidation();
+  };
+
+  submitChild = () => {
+    if (!this.props.error) {
+      this.closeModal();
+      this.props.createUser(
+        {
+          firstName: this.state.firstName,
+          lastName: this.state.lastName,
+          username: this.state.username,
+          password: this.state.password,
+          accountType: "Child",
+          parentId: this.props.userId
+        },
+        this.props.history
+      );
+      this.toggleMenuVisible();
+    }
   };
 
   onFavorite = (e, { name, rating }) => {
@@ -76,6 +141,9 @@ class Dashboard extends Component {
   };
 
   closeModal = () => {
+    this.toggleMenuVisible();
+    this.props.clearMessages();
+    this.props.setError(false);
     this.setState({
       firstName: "",
       lastName: "",
@@ -283,7 +351,13 @@ export default withRouter(
       createUser,
       onDeleteBook,
       setFavorite,
-      setFilter
+      setFilter,
+      setError,
+      setFirstNameError,
+      setLastNameError,
+      setUsernameError,
+      setPasswordError,
+      clearMessages
     })(Dashboard)
   )
 );

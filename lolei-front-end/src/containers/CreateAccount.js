@@ -50,6 +50,7 @@ class Signup extends Component {
     let validLastName = validateLastName(this.state.lastName);
     let validUsername = validateEmail(this.state.username);
     let validPassword = validatePassword(this.state.password);
+
     if (validFirstName.error) {
       error = true;
       this.props.setFirstNameError(error, validFirstName.message);
@@ -96,6 +97,16 @@ class Signup extends Component {
       this.props.createUser(this.state, this.props.history);
     }
   };
+
+  //Need this if someone gets errors on login, hits back, and then here
+  componentDidMount() {
+    this.props.setError(false);
+    this.props.setFirstNameError(false, null);
+    this.props.setLastNameError(false, null);
+    this.props.setUsernameError(false, null);
+    this.props.setPasswordError(false, null);
+    this.props.clearMessages();
+  }
 
   render() {
     return (

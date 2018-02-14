@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Modal, Header, Button, Form, Icon, Message } from "semantic-ui-react";
 import "../styling/modal.css";
 
@@ -9,50 +10,53 @@ const AddChildModal = props => {
         <Icon name="child" />
         Add A Child To Your Account!
       </Header>
-      <Message
-        error
-        header="There was some errors with your submission"
-        list={[
-          "You must include both a upper and lower case letters in your password.",
-          "You need to select your home country."
-        ]}
-      />
+      {props.error ? (
+        <Message
+          error
+          header="Oops! There are some errors in your entries."
+          list={props.messages}
+        />
+      ) : null}
       <Modal.Content id="modal-body">
         <Form>
-          <Form.Field required>
+          <Form.Field>
             <label>First Name:</label>
             <input
               type="text"
               name="firstName"
               onChange={props.onChange}
               value={props.firstName}
+              // error={props.firstNameError}
             />
           </Form.Field>
-          <Form.Field required>
+          <Form.Field>
             <label>Last Name:</label>
             <input
               type="text"
               name="lastName"
               onChange={props.onChange}
               value={props.lastName}
+              // error={props.lastNameError}
             />
           </Form.Field>
-          <Form.Field required>
+          <Form.Field>
             <label>Username:</label>
             <input
               type="text"
               name="username"
               onChange={props.onChange}
               value={props.username}
+              // error={props.usernameError}
             />
           </Form.Field>
-          <Form.Field required>
+          <Form.Field>
             <label>Password:</label>
             <input
               type="password"
               name="password"
               onChange={props.onChange}
               value={props.password}
+              // error={props.passwordError}
             />
           </Form.Field>
         </Form>
@@ -69,4 +73,13 @@ const AddChildModal = props => {
   );
 };
 
-export default AddChildModal;
+const mapStateToProps = state => ({
+  error: state.validation.error,
+  firstNameError: state.validation.firstNameError,
+  lastNameError: state.validation.lastNameError,
+  usernameError: state.validation.usernameError,
+  passwordError: state.validation.passwordError,
+  messages: state.validation.messages
+});
+
+export default connect(mapStateToProps, null)(AddChildModal);

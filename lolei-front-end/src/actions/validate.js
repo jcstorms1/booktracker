@@ -28,6 +28,11 @@ export function setPasswordError(bool, message) {
   };
 }
 
+export function setEmptyError(bool, message) {
+  return dispatch => {
+    dispatch({ type: "EMPTY_ERROR", bool, message });
+  };
+}
 export function clearMessages() {
   return dispatch => {
     dispatch({ type: "CLEAR_MESSAGES" });
