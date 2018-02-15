@@ -5,18 +5,19 @@ import "../styling/modal.css";
 
 const AddChildModal = props => {
   return (
-    <Modal size="small" open={props.modal}>
-      <Header as="h2" id="modal-header" textAlign="center">
-        <Icon name="child" />
-        Add A Child To Your Account!
-      </Header>
+    <Modal size="tiny" open={props.modal}>
       {props.error ? (
         <Message
           error
           header="Oops! There are some errors in your entries."
           list={props.messages}
         />
-      ) : null}
+      ) : (
+        <Header as="h2" id="modal-header" textAlign="center">
+          <Icon name="child" />
+          Add A Child To Your Account!
+        </Header>
+      )}
       <Modal.Content id="modal-body">
         <Form>
           <Form.Field>

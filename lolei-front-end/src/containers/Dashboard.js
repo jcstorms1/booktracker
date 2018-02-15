@@ -112,15 +112,16 @@ class Dashboard extends Component {
     this.setState({ modal: true });
   };
 
-  addChildSubmit = () => {
+  addChildSubmit = e => {
+    e.preventDefault();
     this.props.setError(false);
     this.props.clearMessages();
     this.formValidation();
+    setTimeout(this.submitChild, 1);
   };
 
   submitChild = () => {
     if (!this.props.error) {
-      this.closeModal();
       this.props.createUser(
         {
           firstName: this.state.firstName,
@@ -132,7 +133,8 @@ class Dashboard extends Component {
         },
         this.props.history
       );
-      this.toggleMenuVisible();
+      this.closeModal();
+      setTimeout(this.menuVisible, 1);
     }
   };
 
@@ -340,7 +342,8 @@ const mapStateToProps = state => ({
   userBooks: state.auth.currentUser.books || [],
   children: state.auth.currentUser.children || [],
   selectedChild: state.change.selectedChild,
-  addChildAccount: state.change.addChildAccount
+  addChildAccount: state.change.addChildAccount,
+  error: state.validation.error
 });
 
 export default withRouter(

@@ -30,9 +30,11 @@ const BookList = props => {
   return (
     <div id="my-active-cardgroup">
       {props.activeMenuItem === "home" ? (
-        <Card.Group itemsPerRow={3}>{sortedBooks}</Card.Group>
+        <Card.Group stackable itemsPerRow={3}>
+          {sortedBooks}
+        </Card.Group>
       ) : (
-        <Card.Group id="my-card-group" itemsPerRow={3}>
+        <Card.Group stackable id="my-card-group" itemsPerRow={3}>
           {sortedBooks}
         </Card.Group>
       )}
